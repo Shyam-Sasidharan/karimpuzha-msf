@@ -1,1495 +1,2034 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MSF Dashboard - Complete System</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>msf കരിമ്പുഴ - Date Eating Competition</title>
+
     <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Animate.css for animations -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Animate.css -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Roboto+Slab:wght@400;500;600&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Noto+Sans+Malayalam:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Slick Carousel -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"
+    />
+
     <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --light-bg: #f8f9fa;
-            --dark-text: #2c3e50;
-            --light-text: #7f8c8d;
-            --success-color: #27ae60;
-            --border-radius: 12px;
-            --box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-            --gradient-primary: linear-gradient(135deg, #2c3e50 0%, #4a6491 100%);
-            --gradient-accent: linear-gradient(135deg, #e74c3c 0%, #ff6b6b 100%);
+      /* (Keep all previous CSS styles - they remain the same) */
+      :root {
+        --primary-color: #2c3e50;
+        --secondary-color: #3498db;
+        --accent-color: #e74c3c;
+        --success-color: #2ecc71;
+        --warning-color: #f1c40f;
+        --light-bg: #f8f9fa;
+        --card-bg: #ffffff;
+        --text-primary: #2c3e50;
+        --text-secondary: #7f8c8d;
+        --border-radius: 16px;
+        --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        --gradient-primary: linear-gradient(135deg, #2c3e50 0%, #4a6491 100%);
+        --gradient-accent: linear-gradient(135deg, #e74c3c 0%, #ff6b6b 100%);
+        --gradient-success: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+      }
+
+      [data-theme="dark"] {
+        --primary-color: #ecf0f1;
+        --secondary-color: #3498db;
+        --accent-color: #e74c3c;
+        --success-color: #2ecc71;
+        --light-bg: #1a1a2e;
+        --card-bg: #2c3e50;
+        --text-primary: #ecf0f1;
+        --text-secondary: #bdc3c7;
+        --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        --gradient-primary: linear-gradient(135deg, #0f3460 0%, #1a1a2e 100%);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", "Noto Sans Malayalam", sans-serif;
+        background-color: var(--light-bg);
+        color: var(--text-primary);
+        line-height: 1.6;
+        overflow-x: hidden;
+        transition: all 0.3s ease;
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: var(--light-bg);
+        border-radius: 10px;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: var(--secondary-color);
+        border-radius: 10px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--accent-color);
+      }
+
+      .dashboard-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      /* Theme Toggle */
+      .theme-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        background: var(--gradient-primary);
+        border: none;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .theme-toggle:hover {
+        transform: scale(1.1) rotate(30deg);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Header Styles */
+      .header {
+        background: var(--card-bg);
+        border-radius: var(--border-radius);
+        padding: 25px 30px;
+        margin-bottom: 30px;
+        box-shadow: var(--box-shadow);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: var(--gradient-accent);
+      }
+
+      .logo-section h1 {
+        font-size: 2.2rem;
+        font-weight: 900;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin-bottom: 5px;
+      }
+
+      .logo-section p {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        margin-bottom: 0;
+      }
+
+      .logo-icon {
+        color: var(--secondary-color);
+        margin-right: 10px;
+        font-size: 1.8rem;
+      }
+
+      .pay-now-btn {
+        background: var(--gradient-accent);
+        color: white;
+        border: none;
+        padding: 14px 35px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 20px rgba(231, 76, 60, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .pay-now-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 25px rgba(231, 76, 60, 0.4);
+      }
+
+      .pay-now-btn:active {
+        transform: translateY(-1px);
+      }
+
+      /* Main Content Layout */
+      .main-content {
+        display: flex;
+        gap: 30px;
+        margin-bottom: 30px;
+      }
+
+      @media (max-width: 992px) {
+        .main-content {
+          flex-direction: column;
         }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+      }
+
+      /* Introduction Section */
+      .intro-section {
+        flex: 3;
+        background: var(--card-bg);
+        border-radius: var(--border-radius);
+        padding: 30px;
+        box-shadow: var(--box-shadow);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .intro-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: var(--gradient-accent);
+      }
+
+      .intro-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 25px;
+      }
+
+      .intro-header h2 {
+        font-size: 1.9rem;
+        font-weight: 800;
+        color: var(--text-primary);
+        margin: 0;
+        position: relative;
+      }
+
+      .intro-icon {
+        font-size: 2.2rem;
+        color: var(--accent-color);
+        margin-right: 15px;
+      }
+
+      .intro-text {
+        font-size: 0.9rem;
+        line-height: 1.2;
+        color: var(--text-primary);
+        text-align: justify;
+        font-weight: 600;
+      }
+
+      .intro-text p {
+        margin-bottom: 15px;
+      }
+
+      /* Image Sidebar */
+      .image-sidebar {
+        flex: 1;
+        min-width: 300px;
+      }
+
+      .intro-image {
+        width: 100%;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--box-shadow);
+        transition: all 0.3s ease;
+      }
+
+      .intro-image:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .intro-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* Stats Cards */
+      .stats-card {
+        background: var(--card-bg);
+        border-radius: var(--border-radius);
+        padding: 25px;
+        margin-bottom: 20px;
+        box-shadow: var(--box-shadow);
+        transition: all 0.3s ease;
+        text-align: center;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        width: 45%;
+        padding: 0.5rem 0 0 0;
+      }
+
+      .stats-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .stats-card.total-card {
+        border-top: 4px solid var(--accent-color);
+      }
+
+      .stats-card.total-registered {
+        border-top: 4px solid #6fa9ff;
+      }
+
+      .stats-card h3 {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .stats-card .amount {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--text-primary);
+        margin-bottom: 10px;
+      }
+
+      .stats-icon {
+        font-size: 2.5rem;
+        color: var(--secondary-color);
+        margin-bottom: 15px;
+      }
+
+      .total-card .stats-icon {
+        color: var(--accent-color);
+      }
+
+      /* Gallery Section */
+      .gallery-section {
+        background: var(--card-bg);
+        border-radius: var(--border-radius);
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: var(--box-shadow);
+      }
+
+      .section-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .section-title i {
+        color: var(--accent-color);
+      }
+
+      .gallery-carousel {
+        position: relative;
+      }
+
+      .gallery-item {
+        margin: 0 10px;
+        border-radius: 12px;
+        overflow: hidden;
+        position: relative;
+        height: 200px;
+      }
+
+      .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      .gallery-item:hover img {
+        transform: scale(1.1);
+      }
+
+      /* Live Banner */
+      .live-day-banner {
+        background: var(--gradient-primary);
+        color: white;
+        border-radius: var(--border-radius);
+        padding: 25px 30px;
+        margin-bottom: 30px;
+        text-align: center;
+        box-shadow: var(--box-shadow);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .live-day-banner h2 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .live-dot {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        background-color: #ff6b6b;
+        border-radius: 50%;
+        animation: blink 1.5s infinite;
+      }
+
+      /* Tabs */
+      .dashboard-tabs {
+        margin-bottom: 30px;
+      }
+
+      .nav-tabs {
+        border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-tabs .nav-link {
+        border: none;
+        color: var(--text-secondary);
+        font-weight: 600;
+        padding: 15px 30px;
+        margin-right: 5px;
+        border-radius: 8px 8px 0 0;
+        transition: all 0.3s ease;
+      }
+
+      .nav-tabs .nav-link:hover {
+        color: var(--text-primary);
+      }
+
+      .nav-tabs .nav-link.active {
+        color: var(--accent-color);
+        background: transparent;
+        border-bottom: 3px solid var(--accent-color);
+      }
+
+      .tab-content {
+        background: var(--card-bg);
+        border-radius: 0 0 var(--border-radius) var(--border-radius);
+        padding: 30px;
+        box-shadow: var(--box-shadow);
+      }
+
+      /* Unit List */
+      .unit-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 15px;
+        max-height: 400px;
+        overflow-y: auto;
+        padding-right: 10px;
+      }
+
+      .unit-item {
+        background: var(--card-bg);
+        border-radius: 12px;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.3s ease;
+        border-left: 4px solid var(--secondary-color);
+        cursor: pointer;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .unit-item:hover {
+        transform: translateX(5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .unit-item.highlighted {
+        border-left-color: var(--accent-color);
+        background: rgba(231, 76, 60, 0.05);
+      }
+
+      .unit-name {
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+
+      .unit-amount {
+        font-weight: 700;
+        color: var(--accent-color);
+        font-size: 1.3rem;
+      }
+
+      /* History List */
+      .history-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .history-item:hover {
+        background: rgba(0, 0, 0, 0.02);
+        border-radius: 8px;
+      }
+
+      .history-details h5 {
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 5px;
+      }
+
+      .history-details p {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        margin-bottom: 0;
+      }
+
+      .history-amount {
+        font-weight: 700;
+        color: var(--success-color);
+        font-size: 1.4rem;
+      }
+
+      .view-receipt-btn {
+        background: var(--secondary-color);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .view-receipt-btn:hover {
+        background: var(--primary-color);
+        transform: translateY(-2px);
+      }
+
+      /* UPDATED FOOTER STYLES */
+      .footer {
+        background: var(--gradient-primary);
+        color: white;
+        border-radius: var(--border-radius);
+        padding: 40px 30px;
+        margin-top: 30px;
+        box-shadow: var(--box-shadow);
+      }
+
+      .footer h3 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: white;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer h3::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 3px;
+        background: var(--gradient-accent);
+        border-radius: 2px;
+      }
+
+      .footer-column {
+        margin-bottom: 20px;
+      }
+
+      .footer-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .footer-links li {
+        margin-bottom: 12px;
+      }
+
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.85);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+        font-size: 0.95rem;
+      }
+
+      .footer-links a:hover {
+        color: white;
+        transform: translateX(5px);
+        text-decoration: none;
+      }
+
+      .footer-links a i {
+        font-size: 1rem;
+        width: 20px;
+        text-align: center;
+      }
+
+      .contact-info {
+        color: rgba(255, 255, 255, 0.85);
+      }
+
+      .contact-info p {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+        font-size: 0.95rem;
+      }
+
+      .contact-info i {
+        width: 20px;
+        text-align: center;
+        color: var(--accent-color);
+      }
+
+      .social-links {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .social-links a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        color: white;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        text-decoration: none;
+      }
+
+      .social-links a:hover {
+        background: var(--accent-color);
+        transform: translateY(-3px);
+      }
+
+      .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 25px;
+        margin-top: 30px;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.9rem;
+      }
+
+      .copyright {
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+      }
+
+      /* Brand Section */
+      .brand-section {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .brand-logo {
+        font-size: 2.5rem;
+        color: var(--accent-color);
+      }
+
+      .brand-text h4 {
+        font-size: 1.4rem;
+        font-weight: 800;
+        margin-bottom: 5px;
+        color: white;
+      }
+
+      .brand-text p {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.9rem;
+        margin-bottom: 0;
+      }
+
+      /* ================= MODAL DESIGNS ================= */
+      .modal-content {
+        border-radius: 20px;
+        border: none;
+        overflow: hidden;
+        background: var(--card-bg);
+        color: var(--text-primary);
+      }
+
+      /* Payment Modal */
+      .payment-modal .modal-header {
+        background: var(--gradient-primary);
+        color: white;
+        padding: 25px 30px;
+        border-bottom: none;
+        position: relative;
+      }
+
+      .payment-modal .modal-header::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: var(--gradient-accent);
+      }
+
+      .payment-modal .modal-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .payment-modal .modal-body {
+        padding: 30px;
+      }
+
+      .payment-modal .form-label {
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 8px;
+      }
+
+      .payment-modal .form-control,
+      .payment-modal .form-select {
+        border-radius: 10px;
+        padding: 12px 15px;
+        border: 2px solid #e9ecef;
+        transition: all 0.3s ease;
+        background: var(--card-bg);
+        color: var(--text-primary);
+      }
+
+      .payment-modal .form-control:focus,
+      .payment-modal .form-select:focus {
+        border-color: var(--secondary-color);
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        transform: translateY(-2px);
+      }
+
+      .payment-modal .pack-counter {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        margin: 20px 0;
+      }
+
+      .payment-modal .counter-btn {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: var(--gradient-primary);
+        color: white;
+        border: none;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+      }
+
+      .payment-modal .counter-btn:hover {
+        transform: scale(1.1);
+        background: var(--gradient-accent);
+      }
+
+      .payment-modal .counter-value {
+        font-size: 1.8rem;
+        font-weight: 800;
+        min-width: 60px;
+        text-align: center;
+        color: var(--text-primary);
+      }
+
+      .payment-modal .total-amount-box {
+        background: rgba(52, 152, 219, 0.1);
+        border-radius: 12px;
+        padding: 20px;
+        margin: 25px 0;
+      }
+
+      .payment-modal .total-amount-box .total-label {
+        font-size: 1rem;
+        color: var(--text-secondary);
+        margin-bottom: 5px;
+      }
+
+      .payment-modal .total-amount-box .total-value {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: var(--accent-color);
+      }
+
+      .payment-modal .submit-btn {
+        background: var(--gradient-accent);
+        color: white;
+        border: none;
+        padding: 15px;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        width: 100%;
+        transition: all 0.3s ease;
+      }
+
+      .payment-modal .submit-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(231, 76, 60, 0.3);
+      }
+
+      /* History Modal */
+      .unit-history-modal .modal-header {
+        background: var(--gradient-primary);
+        color: white;
+        padding: 25px 30px;
+        border-bottom: none;
+      }
+
+      .unit-history-modal .modal-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .unit-history-modal .modal-body {
+        padding: 30px;
+        max-height: 500px;
+        overflow-y: auto;
+      }
+
+      .unit-history-modal .ward-header {
+        background: rgba(52, 152, 219, 0.1);
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 25px;
+      }
+
+      .unit-history-modal .ward-stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+      }
+
+      .unit-history-modal .stat-box {
+        background: var(--card-bg);
+        border-radius: 10px;
+        padding: 15px;
+        text-align: center;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .unit-history-modal .stat-value {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--accent-color);
+        margin-bottom: 5px;
+      }
+
+      .unit-history-modal .stat-label {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+      }
+
+      .unit-history-modal .history-item {
+        background: var(--card-bg);
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 10px;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .unit-history-modal .total-box {
+        background: var(--gradient-success);
+        color: white;
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 700;
+        font-size: 1.2rem;
+      }
+
+      /* Receipt Modal */
+      .receipt-modal .modal-dialog {
+        max-width: 700px;
+      }
+
+      .receipt-modal .modal-content {
+        border: 2px solid var(--accent-color);
+      }
+
+      .receipt-modal .modal-header {
+        background: var(--gradient-primary);
+        color: white;
+        padding: 25px 30px;
+        border-bottom: none;
+        text-align: center;
+      }
+
+      .receipt-modal .modal-title {
+        font-size: 1.8rem;
+        font-weight: 800;
+        margin-bottom: 10px;
+      }
+
+      .receipt-modal .receipt-id {
+        font-size: 0.9rem;
+        opacity: 0.9;
+      }
+
+      .receipt-modal .modal-body {
+        padding: 40px;
+      }
+
+      .receipt-modal .receipt-details {
+        background: rgba(52, 152, 219, 0.05);
+        border-radius: 15px;
+        padding: 30px;
+        margin-bottom: 30px;
+      }
+
+      .receipt-modal .detail-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+      }
+
+      .receipt-modal .detail-row:last-child {
+        border-bottom: none;
+      }
+
+      .receipt-modal .detail-row.total {
+        border-top: 2px solid var(--accent-color);
+        margin-top: 15px;
+        padding-top: 20px;
+        font-size: 1.3rem;
+        font-weight: 800;
+        color: var(--accent-color);
+      }
+
+      .receipt-modal .receipt-footer {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px dashed rgba(0, 0, 0, 0.1);
+        color: var(--text-secondary);
+      }
+
+      .receipt-modal .receipt-actions {
+        display: flex;
+        gap: 15px;
+        margin-top: 30px;
+      }
+
+      .receipt-modal .action-btn {
+        flex: 1;
+        padding: 12px;
+        border-radius: 10px;
+        border: none;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+      }
+
+      .receipt-modal .action-btn.download {
+        background: var(--gradient-success);
+        color: white;
+      }
+
+      .receipt-modal .action-btn.share {
+        background: var(--gradient-primary);
+        color: white;
+      }
+
+      .receipt-modal .action-btn.print {
+        background: var(--gradient-accent);
+        color: white;
+      }
+
+      .receipt-modal .action-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Notification */
+      .notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--success-color);
+        color: white;
+        padding: 15px 25px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transform: translateX(500px);
+        animation: slideIn 0.5s ease forwards;
+      }
+
+      .notification.error {
+        background: var(--accent-color);
+      }
+
+      .notification.info {
+        background: var(--secondary-color);
+      }
+
+      @keyframes slideIn {
+        to {
+          transform: translateX(0);
         }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f5f7fa;
-            color: var(--dark-text);
-            line-height: 1.6;
-            overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(52, 152, 219, 0.05) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(231, 76, 60, 0.05) 0%, transparent 20%);
+      }
+
+      /* Loading Animation */
+      .loading-animation {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--gradient-primary);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease;
+      }
+
+      .loading-animation.hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .loader {
+        width: 60px;
+        height: 60px;
+        border: 4px solid rgba(255, 255, 255, 0.2);
+        border-top-color: white;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      .loading-text {
+        color: white;
+        margin-top: 20px;
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
         }
-        
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: var(--secondary-color);
-            border-radius: 10px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-color);
-        }
-        
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
         .dashboard-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+          padding: 15px;
         }
-        
-        /* Header Styles with Animation */
-        .header {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: var(--box-shadow);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            position: relative;
-            overflow: hidden;
-            animation: slideInDown 0.8s ease;
+        .nav-item {
+          font-size: 0.8rem;
         }
-        
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--gradient-accent);
+        .card-header {
+          display: block !important;
         }
-        
-        .logo-section h1 {
-            font-size: 2rem;
-            font-weight: 800;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 5px;
-            display: inline-block;
-        }
-        
-        .logo-section p {
-            color: var(--light-text);
-            font-size: 0.95rem;
-            margin-bottom: 0;
-        }
-        
-        .logo-icon {
-            color: var(--secondary-color);
-            margin-right: 10px;
-            font-size: 1.8rem;
-        }
-        
-        .pay-now-btn {
-            background: var(--gradient-accent);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            transition: all 0.4s ease;
-            box-shadow: 0 6px 15px rgba(231, 76, 60, 0.4);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-        
-        .pay-now-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.2);
-            transition: all 0.5s ease;
-            z-index: -1;
-        }
-        
-        .pay-now-btn:hover::before {
-            width: 100%;
-        }
-        
-        .pay-now-btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 10px 20px rgba(231, 76, 60, 0.5);
-        }
-        
-        /* Tool Selection Section */
-        .tool-section {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: var(--box-shadow);
-        }
-        
-        .tool-section h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-        
-        .tool-item {
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border-left: 4px solid transparent;
-        }
-        
-        .tool-item:hover {
-            background: #e9ecef;
-            transform: translateX(5px);
-        }
-        
-        .tool-item.active {
-            background: #e3f2fd;
-            border-left-color: var(--secondary-color);
-        }
-        
-        .tool-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--secondary-color);
-            color: white;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            font-size: 1.5rem;
-        }
-        
-        .tool-details h5 {
-            font-weight: 600;
-            color: var(--primary-color);
-            margin-bottom: 5px;
-        }
-        
-        .tool-details p {
-            color: var(--light-text);
-            font-size: 0.9rem;
-            margin-bottom: 0;
-        }
-        
-        /* Stats Card Styles */
         .stats-card {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: var(--box-shadow);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(30px);
+          width: 100%;
         }
-        
-        .stats-card.visible {
-            opacity: 1;
-            transform: translateY(0);
+
+        .header {
+          flex-direction: column;
+          text-align: center;
+          padding: 20px;
         }
-        
-        .stats-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: var(--secondary-color);
+
+        .logo-section {
+          margin-bottom: 20px;
         }
-        
-        .stats-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+
+        .pay-now-btn {
+          width: 100%;
         }
-        
-        .stats-card.total-card::after {
-            background: var(--accent-color);
+
+        .main-content {
+          flex-direction: column;
         }
-        
-        .stats-card h3 {
-            font-size: 0.95rem;
-            color: var(--light-text);
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+
+        .image-sidebar {
+          min-width: 100%;
         }
-        
-        .stats-card .amount {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: var(--primary-color);
-            margin-bottom: 0;
-        }
-        
-        .stats-card .amount small {
-            font-size: 1rem;
-            color: var(--light-text);
-            font-weight: 500;
-        }
-        
-        .stats-icon {
-            font-size: 2.5rem;
-            color: var(--secondary-color);
-            margin-bottom: 15px;
-            opacity: 0.8;
-        }
-        
-        .total-card .stats-icon {
-            color: var(--accent-color);
-        }
-        
-        /* Live Day Banner */
-        .live-day-banner {
-            background: var(--gradient-primary);
-            color: white;
-            border-radius: var(--border-radius);
-            padding: 20px;
-            margin-bottom: 30px;
-            text-align: center;
-            box-shadow: var(--box-shadow);
-            position: relative;
-            overflow: hidden;
-            animation: pulse 2s infinite;
-        }
-        
-        .live-day-banner h2 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .live-dot {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            background-color: #ff6b6b;
-            border-radius: 50%;
-            margin-right: 10px;
-            animation: blink 1.5s infinite;
-        }
-        
-        /* Navigation Tabs */
-        .dashboard-tabs {
-            margin-bottom: 30px;
-        }
-        
-        .nav-tabs {
-            border-bottom: 2px solid #e9ecef;
-        }
-        
-        .nav-tabs .nav-link {
-            border: none;
-            color: var(--light-text);
-            font-weight: 600;
-            padding: 12px 25px;
-            margin-right: 5px;
-            border-radius: 8px 8px 0 0;
-            transition: all 0.3s ease;
-        }
-        
-        .nav-tabs .nav-link:hover {
-            color: var(--primary-color);
-            background-color: #f8f9fa;
-        }
-        
-        .nav-tabs .nav-link.active {
-            color: var(--primary-color);
-            background-color: white;
-            border-bottom: 3px solid var(--accent-color);
-        }
-        
-        .tab-content {
-            background: white;
-            border-radius: 0 0 var(--border-radius) var(--border-radius);
-            padding: 30px;
-            box-shadow: var(--box-shadow);
-        }
-        
-        /* Live Unit Details */
+
         .unit-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 15px;
-            max-height: 400px;
-            overflow-y: auto;
-            padding-right: 10px;
+          grid-template-columns: 1fr;
+        }
+
+        .receipt-modal .receipt-actions {
+          flex-direction: column;
+        }
+
+        .modal-dialog {
+          margin: 10px;
         }
         
-        .unit-item {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s ease;
-            border-left: 4px solid var(--secondary-color);
+        .footer-column {
+          margin-bottom: 30px;
         }
         
-        .unit-item:hover {
-            background: #e9ecef;
-            transform: translateX(5px);
+        .social-links {
+          justify-content: center;
         }
-        
-        .unit-item.highlighted {
-            border-left-color: var(--accent-color);
-            background-color: #ffeaea;
+      }
+
+      @media (max-width: 576px) {
+        .section-title {
+          font-size: 1.5rem;
         }
-        
-        .unit-name {
-            font-weight: 600;
-            color: var(--primary-color);
+
+        .stats-card .amount {
+          font-size: 2rem;
         }
-        
-        .unit-amount {
-            font-weight: 700;
-            color: var(--accent-color);
-            font-size: 1.2rem;
+
+        .payment-modal .counter-value {
+          font-size: 1.5rem;
         }
-        
-        /* Payment History */
-        .history-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            border-bottom: 1px solid #f0f0f0;
-            transition: all 0.3s ease;
+
+        .payment-modal .total-amount-box .total-value {
+          font-size: 1.8rem;
         }
-        
-        .history-item:hover {
-            background-color: #f8f9fa;
-            border-radius: 8px;
-        }
-        
-        .history-item:last-child {
-            border-bottom: none;
-        }
-        
-        .history-details h5 {
-            font-weight: 600;
-            color: var(--primary-color);
-            margin-bottom: 5px;
-        }
-        
-        .history-details p {
-            color: var(--light-text);
-            font-size: 0.9rem;
-            margin-bottom: 0;
-        }
-        
-        .history-amount {
-            font-weight: 700;
-            color: var(--success-color);
-            font-size: 1.3rem;
-        }
-        
-        .view-receipt-btn {
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-        
-        .view-receipt-btn:hover {
-            background-color: var(--primary-color);
-            transform: translateY(-2px);
-        }
-        
-        /* Payment Form */
-        .payment-form {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .form-label {
-            font-weight: 600;
-            color: var(--primary-color);
-            margin-bottom: 8px;
-        }
-        
-        .form-control, .form-select {
-            border-radius: 8px;
-            padding: 12px 15px;
-            border: 1px solid #dee2e6;
-            transition: all 0.3s ease;
-        }
-        
-        .form-control:focus, .form-select:focus {
-            border-color: var(--secondary-color);
-            box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
-        }
-        
-        /* Receipt View */
-        .receipt-container {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 30px;
-            box-shadow: var(--box-shadow);
-            max-width: 800px;
-            margin: 0 auto;
-            border: 1px solid #e9ecef;
-        }
-        
-        .receipt-header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-        
-        .receipt-header h2 {
-            color: var(--primary-color);
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        
-        .receipt-details {
-            margin-bottom: 30px;
-        }
-        
-        .receipt-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px dashed #e9ecef;
-        }
-        
-        .receipt-row.total {
-            border-top: 2px solid var(--primary-color);
-            border-bottom: none;
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: var(--accent-color);
-            margin-top: 10px;
-            padding-top: 15px;
-        }
-        
-        .receipt-actions {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 30px;
-        }
-        
-        .action-btn {
-            padding: 10px 25px;
-            border-radius: 8px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-        }
-        
-        .action-btn.download {
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-        }
-        
-        .action-btn.share {
-            background-color: var(--success-color);
-            color: white;
-            border: none;
-        }
-        
-        .action-btn.print {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-        }
-        
-        .action-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        /* Footer */
-        .footer {
-            background: var(--gradient-primary);
-            color: white;
-            border-radius: var(--border-radius);
-            padding: 30px;
-            margin-top: 30px;
-            box-shadow: var(--box-shadow);
-        }
-        
-        .footer h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-        
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            display: block;
-            margin-bottom: 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .footer-links a:hover {
-            color: white;
-            transform: translateX(5px);
-        }
-        
-        .contact-info p {
-            margin-bottom: 10px;
-            color: rgba(255, 255, 255, 0.9);
-        }
-        
-        .contact-info i {
-            margin-right: 10px;
-            color: var(--secondary-color);
-        }
-        
-        /* Content Section for Footer Links */
-        .content-section {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: var(--box-shadow);
-            display: none;
-        }
-        
-        .content-section.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        /* Animation Keyframes */
-        @keyframes slideInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 15px rgba(52, 152, 219, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(52, 152, 219, 0);
-            }
-        }
-        
-        @keyframes blink {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.3;
-            }
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Loading Animation */
-        .loading-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient-primary);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
-        
-        .loading-animation.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-        
-        .loader {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            border: 8px solid rgba(255, 255, 255, 0.2);
-            border-top-color: white;
-            animation: spin 1s infinite linear;
-        }
-        
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .logo-section {
-                margin-bottom: 20px;
-            }
-            
-            .unit-list {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats-card .amount {
-                font-size: 1.8rem;
-            }
-            
-            .history-item {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .history-amount {
-                margin-top: 10px;
-            }
-            
-            .receipt-actions {
-                flex-direction: column;
-            }
-            
-            .nav-tabs .nav-link {
-                padding: 10px 15px;
-                font-size: 0.9rem;
-            }
-        }
+      }
+      
+      .card-header {
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        align-items: center;
+      }
+      
+      @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Loading Animation -->
     <div class="loading-animation" id="loading">
-        <div class="loader"></div>
+      <div class="loader"></div>
+      <div class="loading-text">Loading Dashboard...</div>
     </div>
-    
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle">
+      <i class="fas fa-moon"></i>
+    </button>
+
     <div class="dashboard-container">
-        <!-- Header -->
-        <header class="header animate__animated animate__fadeInDown">
-            <div class="logo-section">
-                <h1><i class="fas fa-chart-line logo-icon"></i> MSF Dashboard</h1>
-                <p>Empowering the community with quality products and services</p>
-            </div>
-            <button class="pay-now-btn" id="payNowBtn">
-                <i class="fas fa-wallet"></i> Pay Now ₹350
+      <!-- Header -->
+      <header class="header animate__animated animate__fadeInDown">
+        <div class="logo-section">
+          <h1><i class="fas fa-calendar-alt logo-icon"></i>msf കരിമ്പുഴ</h1>
+          <p>ഈത്തപ്പഴ ചലഞ്ച് 2026 - Registration & Management</p>
+        </div>
+        <button
+          class="pay-now-btn"
+          id="payNowBtn"
+          data-bs-toggle="modal"
+          data-bs-target="#paymentModal"
+        >
+          <i class="fas fa-wallet me-2"></i> Register Now ₹350
+        </button>
+      </header>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <!-- Introduction Section -->
+        <section class="intro-section animate__animated animate__fadeIn">
+          <div class="intro-header">
+            <i class="fas fa-hands-helping intro-icon"></i>
+            <h2>പ്രിയമുള്ളവരെ…</h2>
+          </div>
+          <div class="intro-text">
+            <p>
+              നമ്മുടെ നാട്ടിലെ സാമൂഹിക-വിദ്യാഭ്യാസ രംഗങ്ങളിൽ സജീവമായി
+              പ്രവർത്തിക്കുന്ന വിദ്യാർത്ഥി സംഘടനയാണല്ലോ എം.എസ്.എഫ്.
+            </p>
+            <p>
+              വിദ്യാർത്ഥികളുടെ അവകാശങ്ങൾ സംരക്ഷിക്കുകയും സമൂഹത്തിന്റെ
+              പുരോഗതിക്കായി സേവനപരമായ ഇടപെടലുകളും നടത്തി കഴിഞ്ഞ കാലങ്ങളിൽ
+              സാമൂഹിക, വിദ്യാഭ്യാസ, സാംസ്കാരിക മേഖലകളിൽ msf കരിമ്പുഴ പഞ്ചായത്ത്
+              കമ്മിറ്റിക്ക് നമ്മുടെ നാടിനായി ഒരുപാട് പ്രവർത്തനങ്ങൾ കാഴ്ചവെക്കാൻ
+              സാധിച്ചിട്ടുണ്ട്.
+            </p>
+            <p>
+              തുടർന്നുള്ള നമ്മുടെ പ്രവർത്തനങ്ങൾക്കും പ്രയത്നങ്ങൾക്കും ശക്തിപകരാൻ
+              വേണ്ടിയുള്ള ഒരു ഈത്തപ്പഴ ചലഞ്ചാണിത്.
+            </p>
+            <p>നിങ്ങളുടെ പൂർണ്ണ സഹകരണവും പങ്കാളിത്തവും പ്രതീക്ഷിക്കുന്നു.</p>
+          </div>
+        </section>
+
+        <!-- Sidebar -->
+        <aside class="image-sidebar">
+          <div class="intro-image">
+            <img
+              src="https://images.unsplash.com/photo-1567446537711-4302c76e0b8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+              alt="Date Eating Competition"
+            />
+          </div>
+        </aside>
+      </div>
+      
+      <!-- Stats Cards -->
+      <div class="card-header">
+        <div class="stats-card total-card">
+          <i class="fas fa-money-bill-wave stats-icon"></i>
+          <h3>TOTAL COLLECTED</h3>
+          <div class="amount">₹12,950</div>
+          <p class="text-muted small">From 37 registrations</p>
+        </div>
+
+        <div class="stats-card total-registered">
+          <i class="fas fa-users stats-icon"></i>
+          <h3>TOTAL REGISTRATIONS</h3>
+          <div class="amount">37</div>
+          <p class="text-muted small">Participants registered</p>
+        </div>
+      </div>
+
+      <!-- Gallery -->
+      <div class="gallery-section animate__animated animate__fadeIn">
+        <h2 class="section-title"><i class="fas fa-images"></i> Gallery</h2>
+        <div class="gallery-carousel">
+          <div class="gallery-item">
+            <img
+              src="https://images.unsplash.com/photo-1564865878688-9a244444042a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+              alt="Event"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+              alt="Food"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+              alt="Competition"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://images.unsplash.com/photo-1532634922-8fe0b757fb13?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+              alt="Community"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Banner -->
+      <div
+        class="live-day-banner animate__animated animate__pulse animate__infinite"
+      >
+        <h2><span class="live-dot"></span> LIVE REGISTRATIONS</h2>
+        <p>Real-time tracking of ward registrations</p>
+      </div>
+
+      <!-- Tabs -->
+      <div class="dashboard-tabs">
+        <ul class="nav nav-tabs" id="dashboardTab">
+          <li class="nav-item">
+            <button
+              class="nav-link active"
+              id="wards-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#wards"
+            >
+              <i class="fas fa-map-marker-alt me-2"></i> Ward Details
             </button>
-        </header>
-        
-        <!-- Tool Selection Section -->
-        <div class="tool-section animate__animated animate__fadeIn">
-            <h2><i class="fas fa-tools"></i> Tool Selection</h2>
-            <div class="tool-item active" data-tool="drive">
-                <div class="tool-icon">
-                    <i class="fas fa-car"></i>
-                </div>
-                <div class="tool-details">
-                    <h5>Management & Cleanliness</h5>
-                    <p class="mb-0">(Drive Manager)</p>
-                </div>
+          </li>
+          <li class="nav-item">
+            <button
+              class="nav-link"
+              id="history-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#history"
+            >
+              <i class="fas fa-history me-2"></i> Registration History
+            </button>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane fade show active" id="wards">
+            <h3 class="section-title">
+              <i class="fas fa-map"></i> Ward Contributions
+            </h3>
+            <div class="unit-list" id="unitList">
+              <!-- Populated by JavaScript -->
             </div>
-            <div class="tool-item" data-tool="business">
-                <div class="tool-icon">
-                    <i class="fas fa-briefcase"></i>
-                </div>
-                <div class="tool-details">
-                    <h5>Management & Cleanliness</h5>
-                    <p class="mb-0">(Business Manager)</p>
-                </div>
+          </div>
+          <div class="tab-pane fade" id="history">
+            <h3 class="section-title">
+              <i class="fas fa-receipt"></i> Recent Registrations
+            </h3>
+            <div class="history-list" id="historyList">
+              <!-- Populated by JavaScript -->
             </div>
-            <div class="tool-item" data-tool="business2">
-                <div class="tool-icon">
-                    <i class="fas fa-chart-pie"></i>
-                </div>
-                <div class="tool-details">
-                    <h5>Management & Cleanliness</h5>
-                    <p class="mb-0">(Business Manager)</p>
-                </div>
-            </div>
+          </div>
         </div>
-        
-        <!-- Stats Section -->
+      </div>
+
+      <!-- UPDATED FOOTER -->
+      <footer class="footer animate__animated animate__fadeInUp">
         <div class="row">
-            <div class="col-md-4">
-                <div class="stats-card total-card" id="totalCard">
-                    <i class="fas fa-money-bill-wave stats-icon"></i>
-                    <h3>Total Collected</h3>
-                    <p class="amount">₹6,300</p>
-                    <p class="text-muted small">Updated just now</p>
-                </div>
+          <!-- Column 1: Karimpuzha MSF Brand -->
+          <div class="col-lg-4 col-md-6 footer-column">
+            <div class="brand-section">
+              <i class="fas fa-hands-helping brand-logo"></i>
+              <div class="brand-text">
+                <h4>Karimpuzha MSF</h4>
+                <p>Empowering the community with quality products and services.</p>
+              </div>
             </div>
-            <div class="col-md-4">
-                <div class="stats-card" id="packsCard">
-                    <i class="fas fa-box-open stats-icon"></i>
-                    <h3>Total Packs</h3>
-                    <p class="amount">18 <small>packs</small></p>
-                    <p class="text-muted small">Active deliveries</p>
-                </div>
+            
+            <div class="contact-info">
+              <p><i class="fas fa-envelope"></i> dev.nshmai@gmail.com</p>
+              <p><i class="fas fa-phone"></i> +91 859287385</p>
+              <p><i class="fas fa-map-marker-alt"></i> Karimpuzha, Kerala</p>
             </div>
-            <div class="col-md-4">
-                <div class="stats-card" id="liveCard">
-                    <i class="fas fa-broadcast-tower stats-icon"></i>
-                    <h3>Live Units</h3>
-                    <p class="amount">12 <small>active</small></p>
-                    <p class="text-muted small">Currently tracking</p>
-                </div>
+            
+            <div class="social-links">
+              <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
             </div>
-        </div>
-        
-        <!-- Live Day Banner -->
-        <div class="live-day-banner animate__animated animate__pulse animate__infinite">
-            <h2><span class="live-dot"></span> LIVE DAY</h2>
-            <p>Real-time tracking and updates for all units</p>
-        </div>
-        
-        <!-- Dashboard Tabs -->
-        <div class="dashboard-tabs">
-            <ul class="nav nav-tabs" id="dashboardTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab">Live Unit Details</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="payment-tab" data-bs-toggle="tab" data-bs-target="#payment" type="button" role="tab">Make Payment</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="history-tab" data-bs-toggle="tab" data-bs-target="#history" type="button" role="tab">Payment History</button>
-                </li>
+          </div>
+
+          <!-- Column 2: Quick Links -->
+          <div class="col-lg-2 col-md-6 footer-column">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+              <li><a href="#" data-bs-toggle="modal" data-bs-target="#contactModal"><i class="fas fa-envelope"></i> Contact Us</a></li>
+              <li><a href="#"><i class="fas fa-calendar-alt"></i> Events</a></li>
+              <li><a href="#"><i class="fas fa-newspaper"></i> News</a></li>
             </ul>
-            <div class="tab-content" id="dashboardTabContent">
-                <!-- Live Unit Details Tab -->
-                <div class="tab-pane fade show active" id="home" role="tabpanel">
-                    <h3 class="mb-4"><i class="fas fa-map-marker-alt"></i> Live Unit Details</h3>
-                    <div class="unit-list" id="unitList">
-                        <!-- Units will be populated by JavaScript -->
-                    </div>
-                </div>
-                
-                <!-- Make Payment Tab -->
-                <div class="tab-pane fade" id="payment" role="tabpanel">
-                    <h3 class="mb-4"><i class="fas fa-credit-card"></i> Make Payment</h3>
-                    <div class="payment-form">
-                        <form id="paymentForm">
-                            <div class="mb-3">
-                                <label for="customerName" class="form-label">Your Name</label>
-                                <input type="text" class="form-control" id="customerName" placeholder="Enter your name" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="mobileNumber" class="form-label">Mobile Number</label>
-                                <input type="tel" class="form-control" id="mobileNumber" placeholder="Enter 10-digit mobile number" pattern="[0-9]{10}" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="selectUnit" class="form-label">Select Unit</label>
-                                <select class="form-select" id="selectUnit" required>
-                                    <option value="" selected disabled>SELECT YOUR WARD</option>
-                                    <!-- Options will be populated by JavaScript -->
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="numberOfPacks" class="form-label">Number of Packs</label>
-                                <input type="number" class="form-control" id="numberOfPacks" min="1" value="1" required>
-                            </div>
-                            <div class="mb-4 p-3 bg-light rounded">
-                                <div class="d-flex justify-content-between">
-                                    <span>Total Amount (1 x ₹350)</span>
-                                    <span class="fw-bold" id="totalAmountDisplay">₹350</span>
-                                </div>
-                            </div>
-                            <div class="d-grid">
-                                <button type="submit" class="btn pay-now-btn btn-lg">
-                                    <i class="fas fa-lock"></i> Pay ₹350
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                
-                <!-- Payment History Tab -->
-                <div class="tab-pane fade" id="history" role="tabpanel">
-                    <h3 class="mb-4"><i class="fas fa-history"></i> Payment History</h3>
-                    <div class="history-list" id="historyList">
-                        <!-- History items will be populated by JavaScript -->
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Content Sections for Footer Links -->
-        <div class="content-section" id="homeContent">
-            <h2><i class="fas fa-home"></i> Home</h2>
-            <p>Welcome to the MSF Dashboard. This is your central hub for managing payments, tracking units, and viewing transaction history.</p>
-            <div class="row mt-4">
-                <div class="col-md-4">
-                    <div class="card border-0 shadow-sm h-100">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="fas fa-chart-line text-primary"></i> Real-time Analytics</h5>
-                            <p class="card-text">Monitor live updates from all units with real-time data visualization.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card border-0 shadow-sm h-100">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="fas fa-money-bill-wave text-success"></i> Easy Payments</h5>
-                            <p class="card-text">Secure and quick payment processing for all your transactions.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card border-0 shadow-sm h-100">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="fas fa-history text-info"></i> Complete History</h5>
-                            <p class="card-text">Access all past transactions and receipts in one organized place.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="content-section" id="privacyContent">
-            <h2><i class="fas fa-shield-alt"></i> Privacy Policy</h2>
-            <p>Last updated: January 10, 2026</p>
-            <p>This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.</p>
-            <h4 class="mt-4">Information We Collect</h4>
-            <p>We collect several different types of information for various purposes to provide and improve our Service to you.</p>
-            <ul>
-                <li><strong>Personal Data:</strong> While using our Service, we may ask you to provide us with certain personally identifiable information that can be used to contact or identify you.</li>
-                <li><strong>Usage Data:</strong> We may also collect information on how the Service is accessed and used.</li>
-                <li><strong>Payment Data:</strong> We collect data necessary to process your payment if you make purchases.</li>
+          </div>
+
+          <!-- Column 3: Policies -->
+          <div class="col-lg-3 col-md-6 footer-column">
+            <h3>Policies</h3>
+            <ul class="footer-links">
+              <li><a href="#" data-bs-toggle="modal" data-bs-target="#privacyModal"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+              <li><a href="#" data-bs-toggle="modal" data-bs-target="#termsModal"><i class="fas fa-file-contract"></i> Terms & Conditions</a></li>
+              <li><a href="#" data-bs-toggle="modal" data-bs-target="#shippingModal"><i class="fas fa-shipping-fast"></i> Shipping Policy</a></li>
+              <li><a href="#" data-bs-toggle="modal" data-bs-target="#returnModal"><i class="fas fa-undo"></i> Return Policy</a></li>
+              <li><a href="#" data-bs-toggle="modal" data-bs-target="#cancellationModal"><i class="fas fa-ban"></i> Cancellation & Refund</a></li>
             </ul>
-            <h4 class="mt-4">Use of Your Information</h4>
-            <p>The Company may use Personal Data for the following purposes:</p>
-            <ul>
-                <li>To provide and maintain our Service</li>
-                <li>To manage your account and registration</li>
-                <li>For the performance of a contract with you</li>
-                <li>To contact you with updates and informative communications</li>
-            </ul>
+          </div>
+
+          <!-- Column 4: Competition Info -->
+          <div class="col-lg-3 col-md-6 footer-column">
+            <h3>Date Eating Competition</h3>
+            <p style="color: rgba(255, 255, 255, 0.85); margin-bottom: 20px;">
+              Join the exciting Date Eating Competition 2026. Register now for only ₹350 per participant.
+            </p>
+            <button
+              class="pay-now-btn mt-2"
+              data-bs-toggle="modal"
+              data-bs-target="#paymentModal"
+              style="width: 100%;"
+            >
+              <i class="fas fa-wallet me-2"></i> Register Now
+            </button>
+          </div>
         </div>
-        
-        <div class="content-section" id="termsContent">
-            <h2><i class="fas fa-file-contract"></i> Terms & Conditions</h2>
-            <p>Last updated: January 10, 2026</p>
-            <p>Please read these terms and conditions carefully before using Our Service.</p>
-            <h4 class="mt-4">Interpretation and Definitions</h4>
-            <p>The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.</p>
-            <h4 class="mt-4">Acknowledgment</h4>
-            <p>By accessing and using the Service, You acknowledge that you have read, understood, and agree to be bound by these Terms and Conditions.</p>
-            <h4 class="mt-4">User Accounts</h4>
-            <p>When You create an account with Us, You must provide Us information that is accurate, complete, and current at all times. Failure to do so constitutes a breach of the Terms.</p>
-            <h4 class="mt-4">Payments</h4>
-            <p>All payments made through the Service are subject to the following conditions:</p>
-            <ul>
-                <li>Payments are processed securely through our payment gateway partners</li>
-                <li>All transactions are final and non-refundable unless otherwise stated</li>
-                <li>You will receive a receipt for all completed transactions</li>
-            </ul>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+          <div class="row">
+            <div class="col-md-12">
+              <p class="copyright">© 2026 Karimpuzha MSF. All rights reserved.</p>
+              <p class="small mt-2" style="color: rgba(255, 255, 255, 0.6);">
+                Designed with <i class="fas fa-heart" style="color: #e74c3c;"></i> for the community
+              </p>
+            </div>
+          </div>
         </div>
-        
-        <div class="content-section" id="contactContent">
-            <h2><i class="fas fa-address-book"></i> Contact Us</h2>
-            <p>We're here to help! Get in touch with us through any of the following methods:</p>
-            <div class="row mt-4">
-                <div class="col-md-6">
-                    <div class="card border-0 shadow-sm h-100">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="fas fa-envelope text-primary"></i> Email</h5>
-                            <p class="card-text">For general inquiries: <strong>info@msfdashboard.com</strong></p>
-                            <p class="card-text">For technical support: <strong>support@msfdashboard.com</strong></p>
-                            <p class="card-text">For billing questions: <strong>billing@msfdashboard.com</strong></p>
-                        </div>
-                    </div>
+      </footer>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal fade payment-modal" id="paymentModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              <i class="fas fa-credit-card me-2"></i> Registration Form
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="paymentForm">
+              <div class="mb-4">
+                <label class="form-label">Full Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter your name"
+                  required
+                />
+              </div>
+              <div class="mb-4">
+                <label class="form-label">Mobile Number</label>
+                <input
+                  type="tel"
+                  class="form-control"
+                  placeholder="Enter 10-digit mobile"
+                  pattern="[0-9]{10}"
+                  required
+                />
+              </div>
+              <div class="mb-4">
+                <label class="form-label">Select Ward</label>
+                <select class="form-select" id="wardSelect" required>
+                  <option value="">Choose your ward</option>
+                  <!-- Populated by JavaScript -->
+                </select>
+              </div>
+              <div class="mb-4">
+                <label class="form-label">Number of Participants</label>
+                <div class="pack-counter">
+                  <button type="button" class="counter-btn" id="decreaseBtn">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <div class="counter-value" id="participantCount">1</div>
+                  <button type="button" class="counter-btn" id="increaseBtn">
+                    <i class="fas fa-plus"></i>
+                  </button>
                 </div>
-                <div class="col-md-6">
-                    <div class="card border-0 shadow-sm h-100">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="fas fa-phone text-success"></i> Phone</h5>
-                            <p class="card-text">Customer Support: <strong>+91 1800-123-4567</strong></p>
-                            <p class="card-text">Technical Support: <strong>+91 1800-890-1234</strong></p>
-                            <p class="card-text">Emergency: <strong>+91 9876543210</strong></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-4">
-                <div class="col-md-12">
-                    <div class="card border-0 shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="fas fa-map-marker-alt text-danger"></i> Office Address</h5>
-                            <p class="card-text"><strong>MSF Dashboard Headquarters</strong></p>
-                            <p class="card-text">123 Business Avenue, Tech Park</p>
-                            <p class="card-text">Kochi, Kerala - 682001</p>
-                            <p class="card-text">India</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+              </div>
+              <div class="total-amount-box">
+                <div class="total-label">Total Amount</div>
+                <div class="total-value" id="totalAmount">₹350</div>
+                <small class="text-muted">₹350 per participant</small>
+              </div>
+              <button type="submit" class="submit-btn">
+                <i class="fas fa-lock me-2"></i> Complete Registration
+              </button>
+            </form>
+          </div>
         </div>
-        
-        <!-- Footer -->
-        <footer class="footer animate__animated animate__fadeInUp">
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <h3>Karimpuzha MSF</h3>
-                    <p>Empowering the community with quality products and services.</p>
-                    <div class="contact-info mt-4">
-                        <p><i class="fas fa-envelope"></i> dev.nishmal@gmail.com</p>
-                        <p><i class="fas fa-phone"></i> +91 8592887385</p>
-                        <p><i class="fas fa-phone"></i> +91 7034387492</p>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <h3>Quick Links</h3>
-                    <div class="footer-links">
-                        <a href="#" class="footer-link" data-target="homeContent"><i class="fas fa-home"></i> Home</a>
-                        <a href="#" class="footer-link" data-target="contactContent"><i class="fas fa-address-book"></i> Contact Us</a>
-                        <a href="#" class="footer-link" data-target="aboutContent"><i class="fas fa-info-circle"></i> About Us</a>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <h3>Policies</h3>
-                    <div class="footer-links">
-                        <a href="#" class="footer-link" data-target="privacyContent"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
-                        <a href="#" class="footer-link" data-target="termsContent"><i class="fas fa-file-contract"></i> Terms & Conditions</a>
-                        <a href="#" class="footer-link" data-target="shippingContent"><i class="fas fa-shipping-fast"></i> Shipping Policy</a>
-                        <a href="#" class="footer-link" data-target="returnContent"><i class="fas fa-undo"></i> Return Policy</a>
-                    </div>
-                </div>
+      </div>
+    </div>
+
+    <!-- History Modal -->
+    <div class="modal fade unit-history-modal" id="historyModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              <i class="fas fa-history me-2"></i> Ward History
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div id="historyContent">
+              <!-- Populated by JavaScript -->
             </div>
-            <div class="text-center mt-4 pt-3 border-top border-light">
-                <p class="mb-0">© 2006-2026 MSF Dashboard. All rights reserved.</p>
-                <p class="small mt-2">msf.ab@lmjy | Εργαστηριότητα Διεθνού 2006</p>
-            </div>
-        </footer>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Receipt Modal -->
-    <div class="modal fade" id="receiptModal" tabindex="-1" aria-labelledby="receiptModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-body p-0">
-                    <div class="receipt-container">
-                        <div class="receipt-header">
-                            <h2>MSF PAYMENT RECEIPT</h2>
-                            <p>Transaction ID: <strong id="receiptId">PAY_7890123456</strong></p>
-                            <p>Date: <strong id="receiptDate">10 January, 2026</strong></p>
-                        </div>
-                        
-                        <div class="receipt-details">
-                            <div class="receipt-row">
-                                <span>Customer Name:</span>
-                                <span id="receiptCustomer">Ajmal</span>
-                            </div>
-                            <div class="receipt-row">
-                                <span>Mobile Number:</span>
-                                <span id="receiptMobile">+91 9876543210</span>
-                            </div>
-                            <div class="receipt-row">
-                                <span>Unit/Ward:</span>
-                                <span id="receiptUnit">KULUKKILIVAD</span>
-                            </div>
-                            <div class="receipt-row">
-                                <span>Payment Method:</span>
-                                <span id="receiptMethod">Online Payment</span>
-                            </div>
-                            <div class="receipt-row">
-                                <span>Number of Packs:</span>
-                                <span id="receiptPacks">1</span>
-                            </div>
-                            <div class="receipt-row">
-                                <span>Amount per Pack:</span>
-                                <span>₹350</span>
-                            </div>
-                            <div class="receipt-row total">
-                                <span>Total Amount Paid:</span>
-                                <span id="receiptTotal">₹350</span>
-                            </div>
-                        </div>
-                        
-                        <div class="text-center mt-4">
-                            <p class="text-muted">Thank you for your payment. This receipt is valid for all official purposes.</p>
-                            <p class="small text-muted">For queries, contact: +91 8592687385 or +91 7034387492</p>
-                        </div>
-                        
-                        <div class="receipt-actions">
-                            <button class="action-btn download" id="downloadReceipt">
-                                <i class="fas fa-download"></i> Download
-                            </button>
-                            <button class="action-btn share" id="shareReceipt">
-                                <i class="fas fa-share-alt"></i> Share
-                            </button>
-                            <button class="action-btn print" id="printReceipt">
-                                <i class="fas fa-print"></i> Print
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
+    <div class="modal fade receipt-modal" id="receiptModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div>
+              <h5 class="modal-title">Registration Receipt</h5>
+              <div class="receipt-id" id="receiptId">REG_7890123456</div>
             </div>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="receipt-details">
+              <div class="detail-row">
+                <span>Name:</span>
+                <span id="receiptName">Ajmal</span>
+              </div>
+              <div class="detail-row">
+                <span>Mobile:</span>
+                <span id="receiptMobile">+91 9876543210</span>
+              </div>
+              <div class="detail-row">
+                <span>Ward:</span>
+                <span id="receiptWard">KULUKKILIVAD</span>
+              </div>
+              <div class="detail-row">
+                <span>Participants:</span>
+                <span id="receiptParticipants">1</span>
+              </div>
+              <div class="detail-row">
+                <span>Amount per person:</span>
+                <span>₹350</span>
+              </div>
+              <div class="detail-row total">
+                <span>Total Amount:</span>
+                <span id="receiptTotal">₹350</span>
+              </div>
+            </div>
+            <div class="receipt-footer">
+              <p>
+                Thank you for registering! This receipt is valid for competition
+                entry.
+              </p>
+            </div>
+            <div class="receipt-actions">
+              <button class="action-btn download" id="downloadBtn">
+                <i class="fas fa-download"></i> Download
+              </button>
+              <button class="action-btn share" id="shareBtn">
+                <i class="fas fa-share-alt"></i> Share
+              </button>
+              <button class="action-btn print" id="printBtn">
+                <i class="fas fa-print"></i> Print
+              </button>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
 
-    <!-- Bootstrap JS Bundle with Popper -->
+    <!-- Policy Modals (Dummy Modals) -->
+    <div class="modal fade" id="privacyModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"><i class="fas fa-shield-alt me-2"></i> Privacy Policy</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <p>Your privacy is important to us. We collect only necessary information for registration and communication purposes.</p>
+            <p>We never share your personal data with third parties without your consent.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="termsModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"><i class="fas fa-file-contract me-2"></i> Terms & Conditions</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <p>By registering for the competition, you agree to abide by all rules and regulations.</p>
+            <p>Registration fees are non-refundable except in case of event cancellation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    
+    <!-- Slick Carousel -->
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
     <script>
-        $(document).ready(function() {
-            // Hide loading animation after page load
-            setTimeout(function() {
-                $('#loading').addClass('hidden');
-            }, 1500);
+      $(document).ready(function () {
+        // Initialize carousel
+        $(".gallery-carousel").slick({
+          dots: true,
+          infinite: true,
+          speed: 500,
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          autoplay: true,
+          autoplaySpeed: 3000,
+          responsive: [
+            {
+              breakpoint: 992,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 1,
+              },
+            },
+            {
+              breakpoint: 768,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+              },
+            },
+          ],
+        });
+
+        // Hide loading
+        setTimeout(() => {
+          $("#loading").addClass("hidden");
+        }, 1000);
+
+        // Theme toggle
+        $("#themeToggle").click(function () {
+          const currentTheme = $("body").attr("data-theme");
+          const newTheme = currentTheme === "dark" ? "light" : "dark";
+          $("body").attr("data-theme", newTheme);
+          localStorage.setItem("theme", newTheme);
+
+          $(this).html(
+            newTheme === "dark"
+              ? '<i class="fas fa-sun"></i>'
+              : '<i class="fas fa-moon"></i>'
+          );
+          showNotification("Theme changed to " + newTheme + " mode", "info");
+        });
+
+        // Set initial theme
+        const savedTheme = localStorage.getItem("theme") || "light";
+        $("body").attr("data-theme", savedTheme);
+        $("#themeToggle").html(
+          savedTheme === "dark"
+            ? '<i class="fas fa-sun"></i>'
+            : '<i class="fas fa-moon"></i>'
+        );
+
+        // Ward data with more realistic amounts
+        const wards = [
+          { name: "ATTASSERY", amount: 1050, participants: 3 },
+          { name: "REZHUMATTA", amount: 700, participants: 2 },
+          { name: "KOOTTILAKKADAV", amount: 1750, participants: 5 },
+          { name: "AMBALAMPADAM", amount: 350, participants: 1 },
+          { name: "KULUKKILIVAD", amount: 2800, participants: 8 },
+          { name: "KOLIANKODE", amount: 1750, participants: 5 },
+          { name: "THOTTARA", amount: 2450, participants: 7 },
+          { name: "KARIMPUZHA", amount: 1050, participants: 3 },
+          { name: "WAKADAFURAM", amount: 700, participants: 2 },
+          { name: "KARIPAMANNA", amount: 0, participants: 0 },
+          { name: "POMBRA", amount: 350, participants: 1 },
+          { name: "OTHERS", amount: 0, participants: 0 },
+        ];
+
+        // Populate wards
+        const unitList = $("#unitList");
+        const wardSelect = $("#wardSelect");
+
+        wards.forEach((ward) => {
+          // Add to list
+          const item = $(`
+            <div class="unit-item ${
+              ward.amount > 0 ? "highlighted" : ""
+            }" data-ward="${ward.name}">
+              <div class="unit-name">${ward.name}</div>
+              <div>
+                <div class="unit-amount">₹${ward.amount}</div>
+                <small class="text-muted">${ward.participants} participants</small>
+              </div>
+            </div>
+          `);
+
+          item.click(() => showWardHistory(ward.name));
+          unitList.append(item);
+
+          // Add to select
+          wardSelect.append(
+            `<option value="${ward.name}">${ward.name} (${ward.participants} registered)</option>`
+          );
+        });
+
+        // Extended Registration data
+        const registrations = [
+          {
+            name: "Ajmal Rahman",
+            ward: "KULUKKILIVAD",
+            date: "Jan 10, 2026",
+            time: "14:30",
+            amount: 350,
+            id: "REG_001",
+          },
+          {
+            name: "Nihal K",
+            ward: "KOLIANKODE",
+            date: "Jan 10, 2026",
+            time: "11:45",
+            amount: 350,
+            id: "REG_002",
+          },
+          {
+            name: "Jafar T",
+            ward: "KOLIANKODE",
+            date: "Jan 8, 2026",
+            time: "09:15",
+            amount: 350,
+            id: "REG_003",
+          },
+          {
+            name: "Shoukath Ali",
+            ward: "KULUKKILIVAD",
+            date: "Jan 9, 2026",
+            time: "16:20",
+            amount: 350,
+            id: "REG_004",
+          },
+          {
+            name: "Rahman P",
+            ward: "THOTTARA",
+            date: "Jan 7, 2026",
+            time: "13:10",
+            amount: 700,
+            id: "REG_005",
+          },
+          {
+            name: "Safvan M",
+            ward: "AMBALAMPADAM",
+            date: "Jan 6, 2026",
+            time: "10:05",
+            amount: 350,
+            id: "REG_006",
+          },
+          {
+            name: "Faris K",
+            ward: "ATTASSERY",
+            date: "Jan 5, 2026",
+            time: "15:40",
+            amount: 1050,
+            id: "REG_007",
+          },
+        ];
+
+        // Populate history
+        const historyList = $("#historyList");
+        registrations.forEach((reg) => {
+          const item = $(`
+            <div class="history-item" data-reg='${JSON.stringify(reg)}'>
+              <div>
+                <h5>${reg.name}</h5>
+                <p>${reg.ward} • ${reg.date} ${reg.time}</p>
+                <small class="text-muted">${reg.id}</small>
+              </div>
+              <div>
+                <div class="history-amount">₹${reg.amount}</div>
+                <button class="view-receipt-btn mt-2" onclick="showReceipt(${JSON.stringify(
+                  reg
+                ).replace(/"/g, "&quot;")})">
+                  <i class="fas fa-receipt"></i> Receipt
+                </button>
+              </div>
+            </div>
+          `);
+          historyList.append(item);
+        });
+
+        // Counter functionality
+        let participantCount = 1;
+        $("#increaseBtn").click(() => {
+          if (participantCount < 10) {
+            participantCount++;
+            updateCounter();
+          }
+        });
+        $("#decreaseBtn").click(() => {
+          if (participantCount > 1) {
+            participantCount--;
+            updateCounter();
+          }
+        });
+
+        function updateCounter() {
+          $("#participantCount").text(participantCount);
+          const total = participantCount * 350;
+          $("#totalAmount").text("₹" + total);
+        }
+
+        // Form submission
+        $("#paymentForm").submit(function (e) {
+          e.preventDefault();
+
+          const name = $(this).find('input[type="text"]').val();
+          const mobile = $(this).find('input[type="tel"]').val();
+          const ward = $("#wardSelect").val();
+          const total = participantCount * 350;
+
+          if (!name || !mobile || !ward) {
+            showNotification("Please fill all fields", "error");
+            return;
+          }
+
+          if (!/^[0-9]{10}$/.test(mobile)) {
+            showNotification("Please enter a valid 10-digit mobile number", "error");
+            return;
+          }
+
+          // Show processing
+          const submitBtn = $(this).find(".submit-btn");
+          submitBtn.html(
+            '<i class="fas fa-spinner fa-spin me-2"></i> Processing...'
+          );
+          submitBtn.prop("disabled", true);
+
+          setTimeout(() => {
+            // Simulate success
+            showNotification(
+              "Registration successful! ₹" + total + " collected",
+              "success"
+            );
+
+            // Reset form
+            $("#paymentForm")[0].reset();
+            participantCount = 1;
+            updateCounter();
+
+            // Close modal
+            $("#paymentModal").modal("hide");
+
+            // Reset button
+            submitBtn.html(
+              '<i class="fas fa-lock me-2"></i> Complete Registration'
+            );
+            submitBtn.prop("disabled", false);
+
+            // Show receipt
+            const receiptData = {
+              name,
+              mobile: "+91 " + mobile,
+              ward,
+              participants: participantCount,
+              amount: total,
+              id: "REG_" + Date.now().toString().slice(-6),
+            };
+            showReceipt(receiptData);
+          }, 1500);
+        });
+
+        // Ward history function
+        window.showWardHistory = function (wardName) {
+          const ward = wards.find((w) => w.name === wardName);
+          const wardRegistrations = registrations.filter(r => r.ward === wardName);
+          
+          const content = `
+            <div class="ward-header">
+              <h4 class="mb-3">${wardName} Ward</h4>
+              <div class="ward-stats">
+                <div class="stat-box">
+                  <div class="stat-value">₹${ward.amount}</div>
+                  <div class="stat-label">Total Collected</div>
+                </div>
+                <div class="stat-box">
+                  <div class="stat-value">${ward.participants}</div>
+                  <div class="stat-label">Registrations</div>
+                </div>
+              </div>
+            </div>
+            <h5 class="mb-3">Recent Registrations</h5>
+            ${wardRegistrations.length > 0 ? wardRegistrations
+              .map(
+                (item) => `
+                <div class="history-item">
+                  <div>
+                    <h6 class="mb-1">${item.name}</h6>
+                    <small class="text-muted">${item.date} ${item.time}</small>
+                  </div>
+                  <div class="text-success fw-bold">₹${item.amount}</div>
+                </div>
+              `
+              )
+              .join("") : '<p class="text-center text-muted py-4">No registrations yet for this ward</p>'}
+            <div class="total-box">
+              <span>Total for ${wardName}</span>
+              <span>₹${ward.amount}</span>
+            </div>
+          `;
+
+          $("#historyContent").html(content);
+          $("#historyModal").modal("show");
+        };
+
+        // Receipt function
+        window.showReceipt = function (data) {
+          $("#receiptName").text(data.name);
+          $("#receiptMobile").text(data.mobile);
+          $("#receiptWard").text(data.ward);
+          $("#receiptParticipants").text(data.participants);
+          $("#receiptTotal").text("₹" + data.amount);
+          $("#receiptId").text(data.id);
+          $("#receiptModal").modal("show");
+        };
+
+        // Receipt actions
+        $("#downloadBtn").click(() => {
+          showNotification("Receipt downloaded successfully", "success");
+          setTimeout(() => {
+            $("#receiptModal").modal("hide");
+          }, 1000);
+        });
+        
+        $("#shareBtn").click(() => {
+          showNotification("Receipt sharing options opened", "info");
+        });
+        
+        $("#printBtn").click(() => {
+          window.print();
+          showNotification("Printing receipt...", "info");
+        });
+
+        // Notification function
+        window.showNotification = function (message, type = "info") {
+          const notification = $(`
+            <div class="notification ${type}">
+              <i class="fas fa-${
+                type === "success"
+                  ? "check-circle"
+                  : type === "error"
+                  ? "exclamation-circle"
+                  : "info-circle"
+              }"></i>
+              <span>${message}</span>
+            </div>
+          `);
+
+          $("body").append(notification);
+
+          setTimeout(() => {
+            notification.fadeOut(300, () => notification.remove());
+          }, 3000);
+        };
+
+        // Update total stats
+        function updateTotalStats() {
+          const totalCollected = wards.reduce((sum, ward) => sum + ward.amount, 0);
+          const totalParticipants = wards.reduce((sum, ward) => sum + ward.participants, 0);
+          
+          $(".total-card .amount").text("₹" + totalCollected);
+          $(".total-card .text-muted").text(`From ${totalParticipants} registrations`);
+          $(".total-registered .amount").text(totalParticipants);
+        }
+
+        // Auto-update simulation
+        setInterval(() => {
+          const randomWard = Math.floor(Math.random() * wards.length);
+          if (wards[randomWard].amount === 0 && Math.random() > 0.6) {
+            const newParticipants = Math.floor(Math.random() * 3) + 1;
+            const newAmount = newParticipants * 350;
             
-            // Animate stats cards on scroll
-            function animateOnScroll() {
-                $('.stats-card').each(function() {
-                    const elementTop = $(this).offset().top;
-                    const elementBottom = elementTop + $(this).outerHeight();
-                    const viewportTop = $(window).scrollTop();
-                    const viewportBottom = viewportTop + $(window).height();
-                    
-                    if (elementBottom > viewportTop && elementTop < viewportBottom) {
-                        $(this).addClass('visible');
-                    }
-                });
+            wards[randomWard].amount += newAmount;
+            wards[randomWard].participants += newParticipants;
+            
+            $(`.unit-item[data-ward="${wards[randomWard].name}"] .unit-amount`).text("₹" + wards[randomWard].amount);
+            $(`.unit-item[data-ward="${wards[randomWard].name}"] .text-muted`).text(`${wards[randomWard].participants} participants`);
+            
+            if (wards[randomWard].amount > 0) {
+              $(`.unit-item[data-ward="${wards[randomWard].name}"]`).addClass("highlighted");
             }
             
-            // Initial animation
-            animateOnScroll();
+            updateTotalStats();
             
-            // Animate on scroll
-            $(window).on('scroll', animateOnScroll);
-            
-            // Pay Now button click - switch to payment tab
-            $('#payNowBtn').click(function() {
-                // Add click animation
-                $(this).addClass('animate__animated animate__pulse');
-                setTimeout(() => {
-                    $(this).removeClass('animate__animated animate__pulse');
-                }, 300);
-                
-                // Switch to payment tab
-                $('#payment-tab').tab('show');
-            });
-            
-            // Tool selection
-            $('.tool-item').click(function() {
-                $('.tool-item').removeClass('active');
-                $(this).addClass('active');
-                
-                // Add animation
-                $(this).addClass('animate__animated animate__bounceIn');
-                setTimeout(() => {
-                    $(this).removeClass('animate__animated animate__bounceIn');
-                }, 500);
-                
-                // Show notification
-                showNotification('Tool selected: ' + $(this).find('h5').text());
-            });
-            
-            // Unit data
-            const units = [
-                { name: "ATTASSERY", amount: 0 },
-                { name: "REZHUMATTA", amount: 0 },
-                { name: "KOOTTILAKKADAV", amount: 0 },
-                { name: "AMBALAMPADAM", amount: 350 },
-                { name: "KULUKKLIVAD", amount: 2800 },
-                { name: "KOLIANKODE", amount: 1400 },
-                { name: "THOTTARA", amount: 1750 },
-                { name: "KARIMPIJZHA", amount: 0 },
-                { name: "WAKADAFURAM", amount: 0 },
-                { name: "KARIPAMANNA", amount: 0 },
-                { name: "POMBRA", amount: 0 },
-                { name: "OTHERS", amount: 0 }
-            ];
-            
-            // Populate unit list
-            const unitList = $('#unitList');
-            const selectUnit = $('#selectUnit');
-            
-            units.forEach(unit => {
-                // Add to unit list display
-                const unitItem = $(`
-                    <div class="unit-item ${unit.amount > 0 ? 'highlighted' : ''}">
-                        <div class="unit-name">${unit.name}</div>
-                        <div class="unit-amount">₹${unit.amount}</div>
-                    </div>
-                `);
-                
-                // Add click animation
-                unitItem.click(function() {
-                    $(this).addClass('animate__animated animate__bounce');
-                    setTimeout(() => {
-                        $(this).removeClass('animate__animated animate__bounce');
-                    }, 500);
-                    
-                    if (unit.amount > 0) {
-                        showNotification(`Unit ${unit.name} has collected ₹${unit.amount}`, 'info');
-                    }
-                });
-                
-                unitList.append(unitItem);
-                
-                // Add to select dropdown
-                selectUnit.append(`<option value="${unit.name}">${unit.name}</option>`);
-            });
-            
-            // Payment history data
-            const payments = [
-                { name: "Ajmal", location: "KULUKKILIVAD", date: "1/10/2026", amount: 350, id: "pay_3001180001jqn!", mobile: "+91 9876543210" },
-                { name: "Nihal", location: "KOLIAMKODE", date: "1/10/2026", amount: 350, id: "pay_5000yk48013n!", mobile: "+91 9876543210" },
-                { name: "Jafar T", location: "KOLIAMKODE", date: "1/8/2026", amount: 350, id: "pay_51896gd2gem3s", mobile: "+91 9876543210" },
-                { name: "Shoukath ali", location: "KULUKKILIVAD", date: "1/9/2026", amount: 350, id: "pay_7890123456", mobile: "+91 9876543210" }
-            ];
-            
-            // Populate payment history
-            const historyList = $('#historyList');
-            payments.forEach(payment => {
-                const historyItem = $(`
-                    <div class="history-item">
-                        <div class="history-details">
-                            <h5>${payment.name}</h5>
-                            <p>${payment.location} - ${payment.date}</p>
-                            <small class="text-muted">${payment.id}</small>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <div class="history-amount me-3">₹${payment.amount}</div>
-                            <button class="view-receipt-btn" data-payment='${JSON.stringify(payment)}'>
-                                <i class="fas fa-receipt"></i> View Receipt
-                            </button>
-                        </div>
-                    </div>
-                `);
-                
-                historyList.append(historyItem);
-            });
-            
-            // View receipt button click
-            $(document).on('click', '.view-receipt-btn', function() {
-                const paymentData = $(this).data('payment');
-                
-                // Fill receipt data
-                $('#receiptCustomer').text(paymentData.name);
-                $('#receiptUnit').text(paymentData.location);
-                $('#receiptDate').text(paymentData.date);
-                $('#receiptId').text(paymentData.id);
-                $('#receiptMobile').text(paymentData.mobile || "+91 9876543210");
-                $('#receiptTotal').text("₹" + paymentData.amount);
-                $('#receiptPacks').text("1");
-                
-                // Show receipt modal
-                $('#receiptModal').modal('show');
-            });
-            
-            // Receipt actions
-            $('#downloadReceipt').click(function() {
-                showNotification('Receipt downloaded successfully!', 'success');
-            });
-            
-            $('#shareReceipt').click(function() {
-                showNotification('Receipt shared successfully!', 'info');
-            });
-            
-            $('#printReceipt').click(function() {
-                window.print();
-                showNotification('Receipt sent to printer!', 'info');
-            });
-            
-            // Payment form submission
-            $('#paymentForm').submit(function(e) {
-                e.preventDefault();
-                
-                const customerName = $('#customerName').val();
-                const mobileNumber = $('#mobileNumber').val();
-                const selectedUnit = $('#selectUnit').val();
-                const numberOfPacks = $('#numberOfPacks').val();
-                const totalAmount = numberOfPacks * 350;
-                
-                // Simulate payment processing
-                $('#paymentForm button[type="submit"]').html('<i class="fas fa-spinner fa-spin"></i> Processing...').prop('disabled', true);
-                
-                // Simulate API call
-                setTimeout(() => {
-                    // Reset form
-                    $('#paymentForm')[0].reset();
-                    $('#totalAmountDisplay').text('₹350');
-                    
-                    // Show success
-                    $('#paymentForm button[type="submit"]').html('<i class="fas fa-check"></i> Payment Successful!').removeClass('pay-now-btn').addClass('btn-success');
-                    
-                    // Update total collected
-                    const currentAmount = $('#totalCard .amount').text();
-                    const currentNum = parseInt(currentAmount.replace('₹', '').replace(',', ''));
-                    const newAmount = currentNum + totalAmount;
-                    $('#totalCard .amount').text('₹' + newAmount.toLocaleString());
-                    
-                    // Add animation to total card
-                    $('#totalCard').addClass('animate__animated animate__tada');
-                    setTimeout(() => {
-                        $('#totalCard').removeClass('animate__animated animate__tada');
-                    }, 1000);
-                    
-                    // Create new payment record
-                    const newPayment = {
-                        name: customerName,
-                        location: selectedUnit,
-                        date: new Date().toLocaleDateString(),
-                        amount: totalAmount,
-                        id: 'pay_' + Math.random().toString(36).substr(2, 9),
-                        mobile: mobileNumber
-                    };
-                    
-                    // Add to payment history
-                    const historyItem = $(`
-                        <div class="history-item">
-                            <div class="history-details">
-                                <h5>${newPayment.name}</h5>
-                                <p>${newPayment.location} - ${newPayment.date}</p>
-                                <small class="text-muted">${newPayment.id}</small>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <div class="history-amount me-3">₹${newPayment.amount}</div>
-                                <button class="view-receipt-btn" data-payment='${JSON.stringify(newPayment)}'>
-                                    <i class="fas fa-receipt"></i> View Receipt
-                                </button>
-                            </div>
-                        </div>
-                    `);
-                    
-                    $('#historyList').prepend(historyItem);
-                    
-                    // Update unit amount
-                    units.forEach((unit, index) => {
-                        if (unit.name === selectedUnit) {
-                            unit.amount += totalAmount;
-                            $('.unit-item').eq(index).find('.unit-amount').text('₹' + unit.amount);
-                            $('.unit-item').eq(index).addClass('highlighted');
-                            
-                            // Add animation
-                            $('.unit-item').eq(index).addClass('animate__animated animate__pulse');
-                            setTimeout(() => {
-                                $('.unit-item').eq(index).removeClass('animate__animated animate__pulse');
-                            }, 1000);
-                        }
-                    });
-                    
-                    // Show notification
-                    showNotification(`Payment of ₹${totalAmount} completed successfully!`, 'success');
-                    
-                    // Reset button after 2 seconds
-                    setTimeout(() => {
-                        $('#paymentForm button[type="submit"]').html('<i class="fas fa-lock"></i> Pay ₹350').removeClass('btn-success').addClass('pay-now-btn').prop('disabled', false);
-                    }, 2000);
-                }, 2000);
-            });
-            
-            // Update total amount when packs change
-            $('#numberOfPacks').on('input', function() {
-                const packs = $(this).val() || 1;
-                const totalAmount = packs * 350;
-                $('#totalAmountDisplay').text('₹' + totalAmount);
-            });
-            
-            // Footer link clicks
-            $('.footer-link').click(function(e) {
-                e.preventDefault();
-                
-                const targetId = $(this).data('target');
-                
-                // Hide all content sections
-                $('.content-section').removeClass('active');
-                
-                // Show the target section
-                $('#' + targetId).addClass('active');
-                
-                // Scroll to the section
-                $('html, body').animate({
-                    scrollTop: $('#' + targetId).offset().top - 100
-                }, 500);
-                
-                // Add animation to the section
-                $('#' + targetId).addClass('animate__animated animate__fadeIn');
-                setTimeout(() => {
-                    $('#' + targetId).removeClass('animate__animated animate__fadeIn');
-                }, 1000);
-            });
-            
-            // Auto-refresh simulation (live updates)
-            setInterval(function() {
-                // Randomly update one unit amount
-                const randomIndex = Math.floor(Math.random() * units.length);
-                if (units[randomIndex].amount === 0 && Math.random() > 0.7) {
-                    units[randomIndex].amount = 350;
-                    
-                    // Update the unit display
-                    $('.unit-item').eq(randomIndex).find('.unit-amount').text('₹350');
-                    $('.unit-item').eq(randomIndex).addClass('highlighted');
-                    
-                    // Add animation
-                    $('.unit-item').eq(randomIndex).addClass('animate__animated animate__pulse');
-                    setTimeout(() => {
-                        $('.unit-item').eq(randomIndex).removeClass('animate__animated animate__pulse');
-                    }, 1000);
-                    
-                    // Update total
-                    const currentAmount = $('#totalCard .amount').text();
-                    const currentNum = parseInt(currentAmount.replace('₹', '').replace(',', ''));
-                    const newAmount = currentNum + 350;
-                    $('#totalCard .amount').text('₹' + newAmount.toLocaleString());
-                }
-            }, 15000); // Every 15 seconds
-            
-            // Add hover effect to stats cards
-            $('.stats-card').hover(
-                function() {
-                    $(this).addClass('animate__animated animate__pulse');
-                },
-                function() {
-                    $(this).removeClass('animate__animated animate__pulse');
-                }
+            // Update select option
+            $(`#wardSelect option[value="${wards[randomWard].name}"]`).text(
+              `${wards[randomWard].name} (${wards[randomWard].participants} registered)`
             );
             
-            // Notification function
-            function showNotification(message, type = 'info') {
-                // Remove existing notifications
-                $('.custom-notification').remove();
-                
-                // Create notification
-                const notification = $(`
-                    <div class="custom-notification animate__animated animate__fadeInRight">
-                        <div class="notification-content">
-                            <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i>
-                            <span>${message}</span>
-                        </div>
-                    </div>
-                `);
-                
-                // Style the notification
-                notification.css({
-                    position: 'fixed',
-                    top: '20px',
-                    right: '20px',
-                    background: type === 'success' ? 'var(--success-color)' : 'var(--secondary-color)',
-                    color: 'white',
-                    padding: '15px 20px',
-                    borderRadius: '8px',
-                    boxShadow: '0 5px 15px rgba(0,0,0,0.2)',
-                    zIndex: '9999',
-                    maxWidth: '350px',
-                    display: 'flex',
-                    alignItems: 'center'
-                });
-                
-                notification.find('.notification-content').css({
-                    display: 'flex',
-                    alignItems: 'center'
-                });
-                
-                notification.find('i').css({
-                    marginRight: '10px',
-                    fontSize: '1.2rem'
-                });
-                
-                // Add to body
-                $('body').append(notification);
-                
-                // Remove after 3 seconds
-                setTimeout(() => {
-                    notification.addClass('animate__animated animate__fadeOutRight');
-                    setTimeout(() => {
-                        notification.remove();
-                    }, 300);
-                }, 3000);
-            }
-            
-            // Initialize Bootstrap tabs
-            $('#dashboardTab button').click(function (e) {
-                e.preventDefault();
-                $(this).tab('show');
-            });
-        });
+            showNotification(`New registration from ${wards[randomWard].name} ward`, "success");
+          }
+        }, 15000);
+      });
     </script>
-</body>
+  </body>
 </html>
