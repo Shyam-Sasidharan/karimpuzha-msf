@@ -42,7 +42,6 @@
     />
 
     <style>
-      /* (Keep all previous CSS styles - they remain the same) */
       :root {
         --primary-color: #2c3e50;
         --secondary-color: #3498db;
@@ -265,7 +264,7 @@
       }
 
       .intro-text {
-        font-size: 1.1rem;
+        font-size: 1rem;
         line-height: 1.2;
         color: var(--text-primary);
         text-align: justify;
@@ -357,7 +356,7 @@
       .gallery-section {
         background: var(--card-bg);
         border-radius: var(--border-radius);
-        padding: 30px;
+        padding: 0.5rem;
         margin-bottom: 30px;
         box-shadow: var(--box-shadow);
       }
@@ -583,7 +582,7 @@
       }
 
       .footer h3::after {
-        content: '';
+        content: "";
         position: absolute;
         bottom: 0;
         left: 0;
@@ -666,26 +665,6 @@
         transition: all 0.3s ease;
         text-decoration: none;
       }
-
-      .social-links a:hover {
-        background: var(--accent-color);
-        transform: translateY(-3px);
-      }
-
-      .footer-bottom {
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        padding-top: 25px;
-        margin-top: 30px;
-        text-align: center;
-        color: rgba(255, 255, 255, 0.7);
-        font-size: 0.9rem;
-      }
-
-      .copyright {
-        font-size: 0.9rem;
-        letter-spacing: 0.5px;
-      }
-
       /* Brand Section */
       .brand-section {
         display: flex;
@@ -710,6 +689,24 @@
         color: rgba(255, 255, 255, 0.8);
         font-size: 0.9rem;
         margin-bottom: 0;
+      }
+      .social-links a:hover {
+        background: var(--accent-color);
+        transform: translateY(-3px);
+      }
+
+      .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 25px;
+        margin-top: 30px;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.9rem;
+      }
+
+      .copyright {
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
       }
 
       /* ================= MODAL DESIGNS ================= */
@@ -1116,7 +1113,9 @@
         .stats-card {
           width: 100%;
         }
-
+        .nav-link {
+          padding: 1rem !important;
+        }
         .header {
           flex-direction: column;
           text-align: center;
@@ -1150,14 +1149,6 @@
         .modal-dialog {
           margin: 10px;
         }
-        
-        .footer-column {
-          margin-bottom: 30px;
-        }
-        
-        .social-links {
-          justify-content: center;
-        }
       }
 
       @media (max-width: 576px) {
@@ -1177,17 +1168,70 @@
           font-size: 1.8rem;
         }
       }
-      
       .card-header {
         display: flex;
         width: 100%;
         justify-content: space-around;
         align-items: center;
       }
-      
-      @keyframes blink {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.5; }
+
+      /* Dark Theme */
+      [data-theme="dark"] {
+        --modal-bg: #1f2933;
+        --modal-text: #f1f5f9;
+        --modal-muted: #9ca3af;
+        --modal-border: #374151;
+      }
+
+      /* Modal Styling */
+      .themed-modal {
+        background-color: var(--modal-bg);
+        color: var(--modal-text);
+        border-radius: 12px;
+        border: 1px solid var(--modal-border);
+      }
+
+      .themed-modal .modal-header {
+        border-bottom: 1px solid var(--modal-border);
+      }
+
+      .themed-modal .modal-footer {
+        border-top: 1px solid var(--modal-border);
+      }
+
+      .themed-modal .modal-title {
+        font-weight: 600;
+      }
+
+      .themed-modal .btn-close {
+        filter: invert(0);
+      }
+
+      /* Dark mode close button fix */
+      [data-theme="dark"] .themed-modal .btn-close {
+        filter: invert(1);
+      }
+
+      .modal-text {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: var(--modal-text);
+      }
+
+      .modal-list {
+        padding-left: 1.2rem;
+        margin: 1rem 0;
+      }
+
+      .modal-list li {
+        margin-bottom: 0.5rem;
+        color: var(--modal-muted);
+      }
+      :root {
+        --modal-bg: #ffffff;
+        --modal-text: #212529;
+        --modal-muted: #6c757d;
+        --modal-border: #e5e7eb;
       }
     </style>
   </head>
@@ -1258,50 +1302,53 @@
           </div>
         </aside>
       </div>
-      
-      <!-- Stats Cards -->
       <div class="card-header">
         <div class="stats-card total-card">
           <i class="fas fa-money-bill-wave stats-icon"></i>
           <h3>TOTAL COLLECTED</h3>
-          <div class="amount">₹12,950</div>
-          <p class="text-muted small">From 37 registrations</p>
+          <div class="amount">₹6,300</div>
+          <p class="text-muted small">From 18 registrations</p>
         </div>
 
         <div class="stats-card total-registered">
           <i class="fas fa-users stats-icon"></i>
           <h3>TOTAL REGISTRATIONS</h3>
-          <div class="amount">37</div>
+          <div class="amount">18</div>
           <p class="text-muted small">Participants registered</p>
         </div>
       </div>
-
       <!-- Gallery -->
       <div class="gallery-section animate__animated animate__fadeIn">
         <h2 class="section-title"><i class="fas fa-images"></i> Gallery</h2>
         <div class="gallery-carousel">
           <div class="gallery-item">
             <img
-              src="https://images.unsplash.com/photo-1564865878688-9a244444042a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+              src="https://images.unsplash.com/photo-1564865878688-9a244444042a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
               alt="Event"
             />
           </div>
           <div class="gallery-item">
             <img
-              src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+              src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
               alt="Food"
             />
           </div>
           <div class="gallery-item">
             <img
-              src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+              src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
               alt="Competition"
             />
           </div>
           <div class="gallery-item">
             <img
-              src="https://images.unsplash.com/photo-1532634922-8fe0b757fb13?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-              alt="Community"
+              src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+              alt="Food festival street food scene"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+              alt="Group at a competition / celebration"
             />
           </div>
         </div>
@@ -1368,16 +1415,18 @@
               <i class="fas fa-hands-helping brand-logo"></i>
               <div class="brand-text">
                 <h4>Karimpuzha MSF</h4>
-                <p>Empowering the community with quality products and services.</p>
+                <p>
+                  Empowering the community with quality products and services.
+                </p>
               </div>
             </div>
-            
+
             <div class="contact-info">
               <p><i class="fas fa-envelope"></i> dev.nshmai@gmail.com</p>
               <p><i class="fas fa-phone"></i> +91 859287385</p>
               <p><i class="fas fa-map-marker-alt"></i> Karimpuzha, Kerala</p>
             </div>
-            
+
             <div class="social-links">
               <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
               <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
@@ -1390,10 +1439,23 @@
           <div class="col-lg-2 col-md-6 footer-column">
             <h3>Quick Links</h3>
             <ul class="footer-links">
-              <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
-              <li><a href="#" data-bs-toggle="modal" data-bs-target="#contactModal"><i class="fas fa-envelope"></i> Contact Us</a></li>
-              <li><a href="#"><i class="fas fa-calendar-alt"></i> Events</a></li>
-              <li><a href="#"><i class="fas fa-newspaper"></i> News</a></li>
+              <li>
+                <a href="#"><i class="fas fa-home"></i> Home</a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  data-bs-toggle="modal"
+                  data-bs-target="#contactModal"
+                  ><i class="fas fa-envelope"></i> Contact Us</a
+                >
+              </li>
+              <li>
+                <a href="#"><i class="fas fa-calendar-alt"></i> Events</a>
+              </li>
+              <li>
+                <a href="#"><i class="fas fa-newspaper"></i> News</a>
+              </li>
             </ul>
           </div>
 
@@ -1401,25 +1463,55 @@
           <div class="col-lg-3 col-md-6 footer-column">
             <h3>Policies</h3>
             <ul class="footer-links">
-              <li><a href="#" data-bs-toggle="modal" data-bs-target="#privacyModal"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
-              <li><a href="#" data-bs-toggle="modal" data-bs-target="#termsModal"><i class="fas fa-file-contract"></i> Terms & Conditions</a></li>
-              <li><a href="#" data-bs-toggle="modal" data-bs-target="#shippingModal"><i class="fas fa-shipping-fast"></i> Shipping Policy</a></li>
-              <li><a href="#" data-bs-toggle="modal" data-bs-target="#returnModal"><i class="fas fa-undo"></i> Return Policy</a></li>
-              <li><a href="#" data-bs-toggle="modal" data-bs-target="#cancellationModal"><i class="fas fa-ban"></i> Cancellation & Refund</a></li>
+              <li>
+                <a
+                  href="#"
+                  data-bs-toggle="modal"
+                  data-bs-target="#privacyModal"
+                  ><i class="fas fa-shield-alt"></i> Privacy Policy</a
+                >
+              </li>
+              <li>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal"
+                  ><i class="fas fa-file-contract"></i> Terms & Conditions</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  data-bs-toggle="modal"
+                  data-bs-target="#shippingModal"
+                  ><i class="fas fa-shipping-fast"></i> Shipping Policy</a
+                >
+              </li>
+              <li>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#returnModal"
+                  ><i class="fas fa-undo"></i> Return Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  data-bs-toggle="modal"
+                  data-bs-target="#cancellationModal"
+                  ><i class="fas fa-ban"></i> Cancellation & Refund</a
+                >
+              </li>
             </ul>
           </div>
 
           <!-- Column 4: Competition Info -->
           <div class="col-lg-3 col-md-6 footer-column">
             <h3>Date Eating Competition</h3>
-            <p style="color: rgba(255, 255, 255, 0.85); margin-bottom: 20px;">
-              Join the exciting Date Eating Competition 2026. Register now for only ₹350 per participant.
+            <p style="color: rgba(255, 255, 255, 0.85); margin-bottom: 20px">
+              Join the exciting Date Eating Competition 2026. Register now for
+              only ₹350 per participant.
             </p>
             <button
               class="pay-now-btn mt-2"
               data-bs-toggle="modal"
               data-bs-target="#paymentModal"
-              style="width: 100%;"
+              style="width: 100%"
             >
               <i class="fas fa-wallet me-2"></i> Register Now
             </button>
@@ -1430,9 +1522,13 @@
         <div class="footer-bottom">
           <div class="row">
             <div class="col-md-12">
-              <p class="copyright">© 2026 Karimpuzha MSF. All rights reserved.</p>
-              <p class="small mt-2" style="color: rgba(255, 255, 255, 0.6);">
-                Designed with <i class="fas fa-heart" style="color: #e74c3c;"></i> for the community
+              <p class="copyright">
+                © 2026 Karimpuzha MSF. All rights reserved.
+              </p>
+              <p class="small mt-2" style="color: rgba(255, 255, 255, 0.6)">
+                Built by CodeBee,
+                <i class="fas fa-heart" style="color: #e74c3c"></i> for the
+                community
               </p>
             </div>
           </div>
@@ -1595,32 +1691,73 @@
       </div>
     </div>
 
-    <!-- Policy Modals (Dummy Modals) -->
-    <div class="modal fade" id="privacyModal" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
+    <!-- Privacy Policy Modal -->
+    <div class="modal fade" id="privacyModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content themed-modal">
           <div class="modal-header">
-            <h5 class="modal-title"><i class="fas fa-shield-alt me-2"></i> Privacy Policy</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            <h5 class="modal-title">
+              <i class="fas fa-shield-alt me-2"></i> Privacy Policy
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
           </div>
+
           <div class="modal-body">
-            <p>Your privacy is important to us. We collect only necessary information for registration and communication purposes.</p>
-            <p>We never share your personal data with third parties without your consent.</p>
+            <p class="modal-text">
+              Your privacy is important to us. We collect only the information
+              necessary for registration, participation, and communication.
+            </p>
+
+            <ul class="modal-list">
+              <li>We do not sell or rent your personal information.</li>
+              <li>Your data is securely stored and protected.</li>
+              <li>
+                Information is used only for competition-related purposes.
+              </li>
+            </ul>
+
+            <p class="modal-text">
+              By using our platform, you consent to our privacy practices.
+            </p>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="modal fade" id="termsModal" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
+    <!-- Terms & Conditions Modal -->
+    <div class="modal fade" id="termsModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content themed-modal">
           <div class="modal-header">
-            <h5 class="modal-title"><i class="fas fa-file-contract me-2"></i> Terms & Conditions</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            <h5 class="modal-title">
+              <i class="fas fa-file-contract me-2"></i> Terms & Conditions
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
           </div>
+
           <div class="modal-body">
-            <p>By registering for the competition, you agree to abide by all rules and regulations.</p>
-            <p>Registration fees are non-refundable except in case of event cancellation.</p>
+            <p class="modal-text">
+              By registering for this competition, you agree to comply with all
+              applicable rules and regulations.
+            </p>
+
+            <ul class="modal-list">
+              <li>Registration fees are non-refundable.</li>
+              <li>Participants must provide accurate information.</li>
+              <li>Organizers reserve the right to modify rules if required.</li>
+            </ul>
+
+            <p class="modal-text">
+              Failure to comply may result in disqualification.
+            </p>
           </div>
         </div>
       </div>
@@ -1645,13 +1782,6 @@
           autoplay: true,
           autoplaySpeed: 3000,
           responsive: [
-            {
-              breakpoint: 992,
-              settings: {
-                slidesToShow: 2,
-                slidesToScroll: 1,
-              },
-            },
             {
               breakpoint: 768,
               settings: {
@@ -1691,20 +1821,20 @@
             : '<i class="fas fa-moon"></i>'
         );
 
-        // Ward data with more realistic amounts
+        // Ward data
         const wards = [
-          { name: "ATTASSERY", amount: 1050, participants: 3 },
-          { name: "REZHUMATTA", amount: 700, participants: 2 },
-          { name: "KOOTTILAKKADAV", amount: 1750, participants: 5 },
-          { name: "AMBALAMPADAM", amount: 350, participants: 1 },
-          { name: "KULUKKILIVAD", amount: 2800, participants: 8 },
-          { name: "KOLIANKODE", amount: 1750, participants: 5 },
-          { name: "THOTTARA", amount: 2450, participants: 7 },
-          { name: "KARIMPUZHA", amount: 1050, participants: 3 },
-          { name: "WAKADAFURAM", amount: 700, participants: 2 },
-          { name: "KARIPAMANNA", amount: 0, participants: 0 },
-          { name: "POMBRA", amount: 350, participants: 1 },
-          { name: "OTHERS", amount: 0, participants: 0 },
+          { name: "ATTASSERY", amount: 0 },
+          { name: "REZHUMATTA", amount: 0 },
+          { name: "KOOTTILAKKADAV", amount: 0 },
+          { name: "AMBALAMPADAM", amount: 350 },
+          { name: "KULUKKLIVAD", amount: 2800 },
+          { name: "KOLIANKODE", amount: 1400 },
+          { name: "THOTTARA", amount: 1750 },
+          { name: "KARIMPUZHA", amount: 0 },
+          { name: "WAKADAFURAM", amount: 0 },
+          { name: "KARIPAMANNA", amount: 0 },
+          { name: "POMBRA", amount: 0 },
+          { name: "OTHERS", amount: 0 },
         ];
 
         // Populate wards
@@ -1718,10 +1848,7 @@
               ward.amount > 0 ? "highlighted" : ""
             }" data-ward="${ward.name}">
               <div class="unit-name">${ward.name}</div>
-              <div>
-                <div class="unit-amount">₹${ward.amount}</div>
-                <small class="text-muted">${ward.participants} participants</small>
-              </div>
+              <div class="unit-amount">₹${ward.amount}</div>
             </div>
           `);
 
@@ -1730,67 +1857,39 @@
 
           // Add to select
           wardSelect.append(
-            `<option value="${ward.name}">${ward.name} (${ward.participants} registered)</option>`
+            `<option value="${ward.name}">${ward.name}</option>`
           );
         });
 
-        // Extended Registration data
+        // Registration data
         const registrations = [
           {
-            name: "Ajmal Rahman",
+            name: "Ajmal",
             ward: "KULUKKILIVAD",
-            date: "Jan 10, 2026",
-            time: "14:30",
+            date: "1/10/2026",
             amount: 350,
             id: "REG_001",
           },
           {
-            name: "Nihal K",
+            name: "Nihal",
             ward: "KOLIANKODE",
-            date: "Jan 10, 2026",
-            time: "11:45",
+            date: "1/10/2026",
             amount: 350,
             id: "REG_002",
           },
           {
             name: "Jafar T",
             ward: "KOLIANKODE",
-            date: "Jan 8, 2026",
-            time: "09:15",
+            date: "1/8/2026",
             amount: 350,
             id: "REG_003",
           },
           {
-            name: "Shoukath Ali",
+            name: "Shoukath ali",
             ward: "KULUKKILIVAD",
-            date: "Jan 9, 2026",
-            time: "16:20",
+            date: "1/9/2026",
             amount: 350,
             id: "REG_004",
-          },
-          {
-            name: "Rahman P",
-            ward: "THOTTARA",
-            date: "Jan 7, 2026",
-            time: "13:10",
-            amount: 700,
-            id: "REG_005",
-          },
-          {
-            name: "Safvan M",
-            ward: "AMBALAMPADAM",
-            date: "Jan 6, 2026",
-            time: "10:05",
-            amount: 350,
-            id: "REG_006",
-          },
-          {
-            name: "Faris K",
-            ward: "ATTASSERY",
-            date: "Jan 5, 2026",
-            time: "15:40",
-            amount: 1050,
-            id: "REG_007",
           },
         ];
 
@@ -1801,7 +1900,7 @@
             <div class="history-item" data-reg='${JSON.stringify(reg)}'>
               <div>
                 <h5>${reg.name}</h5>
-                <p>${reg.ward} • ${reg.date} ${reg.time}</p>
+                <p>${reg.ward} • ${reg.date}</p>
                 <small class="text-muted">${reg.id}</small>
               </div>
               <div>
@@ -1820,10 +1919,8 @@
         // Counter functionality
         let participantCount = 1;
         $("#increaseBtn").click(() => {
-          if (participantCount < 10) {
-            participantCount++;
-            updateCounter();
-          }
+          participantCount++;
+          updateCounter();
         });
         $("#decreaseBtn").click(() => {
           if (participantCount > 1) {
@@ -1849,11 +1946,6 @@
 
           if (!name || !mobile || !ward) {
             showNotification("Please fill all fields", "error");
-            return;
-          }
-
-          if (!/^[0-9]{10}$/.test(mobile)) {
-            showNotification("Please enter a valid 10-digit mobile number", "error");
             return;
           }
 
@@ -1888,10 +1980,10 @@
             // Show receipt
             const receiptData = {
               name,
-              mobile: "+91 " + mobile,
+              mobile,
               ward,
               participants: participantCount,
-              amount: total,
+              total,
               id: "REG_" + Date.now().toString().slice(-6),
             };
             showReceipt(receiptData);
@@ -1901,36 +1993,39 @@
         // Ward history function
         window.showWardHistory = function (wardName) {
           const ward = wards.find((w) => w.name === wardName);
-          const wardRegistrations = registrations.filter(r => r.ward === wardName);
-          
+          const sampleData = [
+            { name: "Sample User", date: "1/10/2026", amount: 350 },
+            { name: "Another User", date: "1/9/2026", amount: 350 },
+          ];
+
           const content = `
             <div class="ward-header">
-              <h4 class="mb-3">${wardName} Ward</h4>
+              <h4 class="mb-3">${wardName}</h4>
               <div class="ward-stats">
                 <div class="stat-box">
                   <div class="stat-value">₹${ward.amount}</div>
                   <div class="stat-label">Total Collected</div>
                 </div>
                 <div class="stat-box">
-                  <div class="stat-value">${ward.participants}</div>
+                  <div class="stat-value">${sampleData.length}</div>
                   <div class="stat-label">Registrations</div>
                 </div>
               </div>
             </div>
             <h5 class="mb-3">Recent Registrations</h5>
-            ${wardRegistrations.length > 0 ? wardRegistrations
+            ${sampleData
               .map(
                 (item) => `
-                <div class="history-item">
-                  <div>
-                    <h6 class="mb-1">${item.name}</h6>
-                    <small class="text-muted">${item.date} ${item.time}</small>
-                  </div>
-                  <div class="text-success fw-bold">₹${item.amount}</div>
+              <div class="history-item">
+                <div>
+                  <h6 class="mb-1">${item.name}</h6>
+                  <small class="text-muted">${item.date}</small>
                 </div>
-              `
+                <div class="text-success fw-bold">₹${item.amount}</div>
+              </div>
+            `
               )
-              .join("") : '<p class="text-center text-muted py-4">No registrations yet for this ward</p>'}
+              .join("")}
             <div class="total-box">
               <span>Total for ${wardName}</span>
               <span>₹${ward.amount}</span>
@@ -1947,26 +2042,19 @@
           $("#receiptMobile").text(data.mobile);
           $("#receiptWard").text(data.ward);
           $("#receiptParticipants").text(data.participants);
-          $("#receiptTotal").text("₹" + data.amount);
+          $("#receiptTotal").text("₹" + (data.amount ? data.amount : 0));
           $("#receiptId").text(data.id);
           $("#receiptModal").modal("show");
         };
 
         // Receipt actions
-        $("#downloadBtn").click(() => {
-          showNotification("Receipt downloaded successfully", "success");
-          setTimeout(() => {
-            $("#receiptModal").modal("hide");
-          }, 1000);
-        });
-        
-        $("#shareBtn").click(() => {
-          showNotification("Receipt sharing options opened", "info");
-        });
-        
+        $("#downloadBtn").click(() =>
+          showNotification("Receipt downloaded", "success")
+        );
+        $("#shareBtn").click(() => showNotification("Receipt shared", "info"));
         $("#printBtn").click(() => {
           window.print();
-          showNotification("Printing receipt...", "info");
+          showNotification("Printing receipt", "info");
         });
 
         // Notification function
@@ -1991,43 +2079,19 @@
           }, 3000);
         };
 
-        // Update total stats
-        function updateTotalStats() {
-          const totalCollected = wards.reduce((sum, ward) => sum + ward.amount, 0);
-          const totalParticipants = wards.reduce((sum, ward) => sum + ward.participants, 0);
-          
-          $(".total-card .amount").text("₹" + totalCollected);
-          $(".total-card .text-muted").text(`From ${totalParticipants} registrations`);
-          $(".total-registered .amount").text(totalParticipants);
-        }
-
         // Auto-update simulation
         setInterval(() => {
           const randomWard = Math.floor(Math.random() * wards.length);
-          if (wards[randomWard].amount === 0 && Math.random() > 0.6) {
-            const newParticipants = Math.floor(Math.random() * 3) + 1;
-            const newAmount = newParticipants * 350;
-            
-            wards[randomWard].amount += newAmount;
-            wards[randomWard].participants += newParticipants;
-            
-            $(`.unit-item[data-ward="${wards[randomWard].name}"] .unit-amount`).text("₹" + wards[randomWard].amount);
-            $(`.unit-item[data-ward="${wards[randomWard].name}"] .text-muted`).text(`${wards[randomWard].participants} participants`);
-            
-            if (wards[randomWard].amount > 0) {
-              $(`.unit-item[data-ward="${wards[randomWard].name}"]`).addClass("highlighted");
-            }
-            
-            updateTotalStats();
-            
-            // Update select option
-            $(`#wardSelect option[value="${wards[randomWard].name}"]`).text(
-              `${wards[randomWard].name} (${wards[randomWard].participants} registered)`
+          if (wards[randomWard].amount === 0 && Math.random() > 0.7) {
+            wards[randomWard].amount = 350;
+            $(
+              `.unit-item[data-ward="${wards[randomWard].name}"] .unit-amount`
+            ).text("₹350");
+            $(`.unit-item[data-ward="${wards[randomWard].name}"]`).addClass(
+              "highlighted"
             );
-            
-            showNotification(`New registration from ${wards[randomWard].name} ward`, "success");
           }
-        }, 15000);
+        }, 10000);
       });
     </script>
   </body>
